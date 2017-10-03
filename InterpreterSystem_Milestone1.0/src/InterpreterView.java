@@ -75,6 +75,9 @@ public class InterpreterView {
 		srcCodeScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		srcCodeScrollPane.setBounds(49, 167, 2376, 702);
 		
+		TextLineNumber tln = new TextLineNumber(srcCodeTextArea);
+		srcCodeScrollPane.setRowHeaderView(tln);
+		
 		//Contains console and list of tokens text areas
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setSelectedIndex(-1);
