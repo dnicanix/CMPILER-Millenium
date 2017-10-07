@@ -33,6 +33,7 @@ public class MilleniumLanguage {
 	      if(token.getType() == MilleniumLexer.EOF) {
 	        break;
 	      }
+	     
 	      valuesAndTokens += 
 	    		  MilleniumLexer.VOCABULARY.getSymbolicName(token.getType()) + ": " + token.getText() + "\n";
 	      

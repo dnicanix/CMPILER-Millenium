@@ -33,10 +33,13 @@ public class MilleniumView implements ActionListener{
 	private JFrame frame;
 	private JButton btnScan;
 	private JTextArea srcCodeTextArea;
-	private JScrollPane srcCodeScrollPane;
-	private JScrollPane listOfTokensScrollPane;
+	private JScrollPane srcCodeScrollPane, 
+						consoleScrollPane, listOfTokensScrollPane;
 	private JTabbedPane tabbedPane;
 	private JTextArea consoleTextArea, listOfTokensTextArea;
+	private int widthCodeScrollPane, heightCodeScrollPane, 
+				widthConsoleScrollPane, heightConsoleScrollPane,
+				yTabbedPane, widthTabbedPane, heightTabbedPane;
 	
 	PrintStream printStream;
 	
@@ -53,8 +56,16 @@ public class MilleniumView implements ActionListener{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
+		
 		Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
+		widthCodeScrollPane = (int)DimMax.getWidth() - 100;
+		heightCodeScrollPane = (int)DimMax.getHeight() - 500;
+		widthConsoleScrollPane = (int)DimMax.getWidth() - 100;
+		heightConsoleScrollPane = (int)DimMax.getHeight() - 500;
+		yTabbedPane = (int)DimMax.getHeight() - 350;
+		widthTabbedPane = (int)DimMax.getWidth() - 100;
+		heightTabbedPane = (int)DimMax.getHeight() - yTabbedPane - 70;
+		
 		frame = new JFrame();
 		frame.setTitle("Millenium Interpreter System");
 		frame.setResizable(false);
@@ -78,7 +89,7 @@ public class MilleniumView implements ActionListener{
 		
 		srcCodeScrollPane = new JScrollPane(srcCodeTextArea);
 		srcCodeScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		srcCodeScrollPane.setBounds(50, 100, 1250, 400);
+		srcCodeScrollPane.setBounds(50, 100, widthCodeScrollPane, heightCodeScrollPane);
 		
 		TextLineNumber tln = new TextLineNumber(srcCodeTextArea);
 		srcCodeScrollPane.setRowHeaderView(tln);
@@ -86,7 +97,7 @@ public class MilleniumView implements ActionListener{
 		//Contains console and list of tokens text areas
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setSelectedIndex(-1);
-		tabbedPane.setBounds(50, 530, 1250, 160);
+		tabbedPane.setBounds(50, yTabbedPane, widthTabbedPane, heightTabbedPane);
 		tabbedPane.setFont(new Font("Tahoma", Font.BOLD,15));
 		
 		//For syntax and semantic errors
@@ -96,7 +107,11 @@ public class MilleniumView implements ActionListener{
 		consoleTextArea.setBackground(SystemColor.control);
 		consoleTextArea.setForeground(Color.BLACK);
 		consoleTextArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tabbedPane.addTab("Console", null, consoleTextArea);
+		
+		consoleScrollPane = new JScrollPane(consoleTextArea);
+		consoleScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		consoleScrollPane.setBounds(50, 100, 1250, 400);
+		tabbedPane.addTab("Console", null, consoleScrollPane);
 		
 		//For output of lexical analyzer (list of tokens)
 		listOfTokensTextArea = new JTextArea();
@@ -119,6 +134,8 @@ public class MilleniumView implements ActionListener{
 		printStream = new PrintStream(new CustomOutputStream(consoleTextArea));
 		System.setOut(printStream);
 		System.setErr(printStream);
+		
+
 	}
 
 	@Override
