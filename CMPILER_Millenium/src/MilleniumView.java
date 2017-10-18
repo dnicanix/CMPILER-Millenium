@@ -135,7 +135,6 @@ public class MilleniumView implements ActionListener{
 		System.setOut(printStream);
 		System.setErr(printStream);
 		
-
 	}
 
 	@Override
@@ -145,6 +144,7 @@ public class MilleniumView implements ActionListener{
 			consoleTextArea.setText("");
 			String tokens = milleniumController.getLexerTokens(srcCodeTextArea.getText());
 			listOfTokensTextArea.setText(tokens);
+			milleniumController.parse();
 		}
 	}
 	

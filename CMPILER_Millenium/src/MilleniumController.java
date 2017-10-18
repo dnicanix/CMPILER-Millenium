@@ -11,4 +11,8 @@ public class MilleniumController {
 		return milleniumLang.tokenize(src);
 	}
 	
+	public void parse(){
+		milleniumLang.parse();
+	}
+	
 }

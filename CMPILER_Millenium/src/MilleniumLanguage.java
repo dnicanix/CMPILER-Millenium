@@ -12,6 +12,9 @@ public class MilleniumLanguage {
 	MilleniumView milleniumView;
 	ArrayList<String> valuesAndTokens;
 	
+	MilleniumLexer lexer;
+	MilleniumParser parser;
+	
 	public MilleniumLanguage(){
 		valuesAndTokens = new ArrayList<String>();
 		milleniumController = new MilleniumController(this);
@@ -24,7 +27,8 @@ public class MilleniumLanguage {
 		String valuesAndTokens = ""; 
 		
 		ANTLRInputStream input = new ANTLRInputStream( src);
-		MilleniumLexer lexer = new MilleniumLexer(input);
+		lexer = new MilleniumLexer(input);
+		/* PRINTING TOKENS
 		lexer.removeErrorListeners();
 		lexer.addErrorListener(new MilleniumLexerErrorListener());
 		
@@ -40,10 +44,26 @@ public class MilleniumLanguage {
 	    }
 	    
 	    return valuesAndTokens;
+	    */
+		return "";
 	}
 	
 	
 	// 2.) PARSE()
+	public void parse(){
+		
+	    CommonTokenStream tokens = new CommonTokenStream(lexer);
+	    
+	    parser = new MilleniumParser(tokens);
+	    parser.setBuildParseTree(true);
+	    ParseTree tree = parser.program(); // begin parsing at rule 'start'
+	    /***
+	    MilleniumParserListener mill = new MilleniumParserListener();
+	    ParseTreeWalker walker = new ParseTreeWalker();
+	    walker.walk(mill, tree);
+	     ***/
+	    System.out.println(tree.toStringTree(parser)); // print LISP-style tree
+	}
 	
 	
 	// 3.) INTERPRET()
