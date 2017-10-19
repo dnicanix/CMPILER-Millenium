@@ -1,10 +1,10 @@
+
 import java.util.ArrayList;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.atn.PredictionMode;
 import org.antlr.v4.runtime.tree.*;
-
-import errorhandlers.MilleniumLexerErrorListener;
 
 public class MilleniumLanguage {
 	
@@ -54,7 +54,11 @@ public class MilleniumLanguage {
 		
 	    CommonTokenStream tokens = new CommonTokenStream(lexer);
 	    
-	    parser = new MilleniumParser(tokens);
+	    parser = new MilleniumParser(tokens);    
+	    parser.removeErrorListeners();
+	    parser.addErrorListener(new MilleniumParserErrorListener(milleniumView));
+	    //parser.addErrorListener(new DiagnosticErrorListener());
+	    //parser.getInterpreter() .setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION); // Report all ambiguities	    
 	    parser.setBuildParseTree(true);
 	    ParseTree tree = parser.program(); // begin parsing at rule 'start'
 	    /***

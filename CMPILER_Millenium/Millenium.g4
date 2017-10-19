@@ -12,15 +12,21 @@ program						: function_declaration* main_function EOF;
 // Main Statements
 statement					: vardecl_list 
 							| const_statement END
+							| const_statement {notifyErrorListeners("Insert ';' to complete statement.");}
 							| assignment_statement END
+							| assignment_statement {notifyErrorListeners("Insert ';' to complete statement.");}
 							| funccall_statement END
+							| funccall_statement {notifyErrorListeners("Insert ';' to complete statement.");}
 							| if_statement
 							| while_statement
 							| do_while_statement
 							| for_statement
 							| return_statement END
+							| return_statement {notifyErrorListeners("Insert ';' to complete statement.");}
 							| scan_statement END
+							| scan_statement {notifyErrorListeners("Insert ';' to complete statement.");}
 							| print_statement END
+							| print_statement {notifyErrorListeners("Insert ';' to complete statement.");}
 							;
 
 
@@ -130,7 +136,10 @@ if_statement				: IF_CONDITIONAL conditional_block
 							  (ELSE_IF_CONDITIONAL conditional_block)*
 							  (ELSE_CONDITIONAL code_block)*;
 conditional_block			: OPEN_PAR conditional_factor CLOSE_PAR
-							  OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK;
+							  OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK
+							| OPEN_PAR conditional_factor CLOSE_PAR
+							  OPEN_CURLY_BRACK (statement)* {notifyErrorListeners("Missing closing '}'");} 
+							;
 code_block					: OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK;
 
 while_statement				: WHILE_LOOP conditional_block;

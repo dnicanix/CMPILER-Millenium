@@ -1,5 +1,7 @@
 
 
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -22,6 +24,9 @@ import javax.swing.JTabbedPane;
 import utils.CustomOutputStream;
 import utils.TextLineNumber;
 
+
+
+
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +45,7 @@ public class MilleniumView implements ActionListener{
 	private int widthCodeScrollPane, heightCodeScrollPane, 
 				widthConsoleScrollPane, heightConsoleScrollPane,
 				yTabbedPane, widthTabbedPane, heightTabbedPane;
-	
+	TextLineNumber tln;
 	PrintStream printStream;
 	
 	private MilleniumController milleniumController;
@@ -91,7 +96,7 @@ public class MilleniumView implements ActionListener{
 		srcCodeScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		srcCodeScrollPane.setBounds(50, 100, widthCodeScrollPane, heightCodeScrollPane);
 		
-		TextLineNumber tln = new TextLineNumber(srcCodeTextArea);
+		tln = new TextLineNumber(srcCodeTextArea);
 		srcCodeScrollPane.setRowHeaderView(tln);
 		
 		//Contains console and list of tokens text areas
@@ -146,6 +151,13 @@ public class MilleniumView implements ActionListener{
 			listOfTokensTextArea.setText(tokens);
 			milleniumController.parse();
 		}
+	}
+	
+	public void changeLineNumberColor(int lineNum){
+		tln.setCurrentLineForeground(Color.GREEN);
+		tln.repaint();
+		srcCodeTextArea.repaint();
+		srcCodeScrollPane.repaint();
 	}
 	
 	
