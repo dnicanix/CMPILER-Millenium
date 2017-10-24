@@ -10,148 +10,200 @@ grammar Millenium;
 
 program						: function_declaration* main_function EOF;
 // Main Statements
-statement					: vardecl_list 
-							| const_statement END
-							| const_statement {notifyErrorListeners("Insert ';' to complete statement.");}
-							| assignment_statement END
-							| assignment_statement {notifyErrorListeners("Insert ';' to complete statement.");}
-							| funccall_statement END
-							| funccall_statement {notifyErrorListeners("Insert ';' to complete statement.");}
-							| if_statement
-							| while_statement
-							| do_while_statement
-							| for_statement
-							| return_statement END
-							| return_statement {notifyErrorListeners("Insert ';' to complete statement.");}
-							| scan_statement END
-							| scan_statement {notifyErrorListeners("Insert ';' to complete statement.");}
-							| print_statement END
-							| print_statement {notifyErrorListeners("Insert ';' to complete statement.");}
-							;
+statement					
+	: vardecl_list 
+	| const_statement END
+	| const_statement 			{notifyErrorListeners("Insert ';' to complete statement.");}
+	| assignment_statement END
+	| funccall_statement END
+	| if_statement
+	| while_statement
+	| do_while_statement
+	| for_statement
+	| return_statement END
+	| scan_statement END
+	| scan_statement 			{notifyErrorListeners("Insert ';' to complete statement.");}
+	| print_statement END
+	| print_statement 			{notifyErrorListeners("Insert ';' to complete statement.");}
+	| COMMENT_BLOCK
+	;
 
 
  // Variable Declaration       
-vardecl_list 				: var_decl END (vardecl_list)?;
-var_decl					: data_type (array_size)? (var_identifier_list);
-var_identifier_list			: VARIABLE_IDENTIFIER var_assignment_statement? ENUMERATION (var_identifier_list)?
-							| VARIABLE_IDENTIFIER var_assignment_statement?
-							;
-array_size					: ARRAY_SIZE_DELIMETER INTEGER_LITERAL;
-data_type					: INT_DTYPE
-							| FLOAT_DTYPE
-							| CHAR_DTYPE
-							| STRING_DTYPE
-							| BOOLEAN_DTYPE
-							;
+vardecl_list 				
+	: var_decl END (vardecl_list)?
+	;
+var_decl					
+	: data_type (array_size)? (var_identifier_list);
+var_identifier_list			
+	: VARIABLE_IDENTIFIER var_assignment_statement? ENUMERATION (var_identifier_list)?
+	| VARIABLE_IDENTIFIER var_assignment_statement?
+	;
+array_size					
+	: ARRAY_SIZE_DELIMETER INTEGER_LITERAL;
+data_type					
+	: INT_DTYPE
+	| FLOAT_DTYPE
+	| CHAR_DTYPE
+	| STRING_DTYPE
+	| BOOLEAN_DTYPE
+	;
 
 
 // Function Declaration
-function_declaration 		: function_return | function_noreturn;
-function_return	     		: data_type FUNCTION_IDENTIFIER function_block;
-function_noreturn    		: VOID FUNCTION_IDENTIFIER function_block;
-parameters	     			: data_type VARIABLE_IDENTIFIER (ENUMERATION parameters)?;
-function_block				: OPEN_PAR parameters? CLOSE_PAR code_block;
-main_function	     		: VOID MAIN_FUNC OPEN_PAR CLOSE_PAR code_block;
+function_declaration 		
+	: function_return | function_noreturn;
+function_return	     		
+	: data_type FUNCTION_IDENTIFIER function_block;
+function_noreturn    		
+	: VOID FUNCTION_IDENTIFIER function_block;
+parameters	     			
+	: data_type VARIABLE_IDENTIFIER (ENUMERATION parameters)?;
+function_block				
+	: OPEN_PAR parameters? CLOSE_PAR code_block;
+main_function	     		
+	: VOID MAIN_FUNC OPEN_PAR CLOSE_PAR code_block;
 
 
 // Expression
-expression					: string_expression 
-							| string_expression ADDITION_OPE expression
-							| var_func_expression
-							| num_expression num_ope num_expression
-							| bool_expression
-							;
+expression					
+	: string_expression 
+	| string_expression ADDITION_OPE expression
+	| var_func_expression
+	| num_expression num_ope num_expression
+	| bool_expression
+	;
 		/*** Added ***/						
-string_expression			: OPEN_PAR string_expression CLOSE_PAR
-							| string_expression ADDITION_OPE string_expression
-							| STRING_LITERAL | funccall_statement
-							;
+string_expression			
+	: OPEN_PAR string_expression CLOSE_PAR
+	| string_expression ADDITION_OPE string_expression
+	| STRING_LITERAL | funccall_statement | VARIABLE_IDENTIFIER
+	;
 		/*** 	   ***/
-num_expression				: OPEN_PAR num_expression CLOSE_PAR
-							| num_expression num_ope num_expression
-							| num_factor
-							;
-num_ope						: ADDITION_OPE
-							| SUBTRACTION_OPE
-							| MULTIPLICATION_OPE
-							| DIVISION_OPE 
-							| MODULO_OPE;
-unary_ope					: '+' | '-';
-num_factor					: CHAR_LITERAL  
-							| (unary_ope)? INTEGER_LITERAL
-							| (unary_ope)? FLOAT_LITERAL 
-							;
+num_expression				
+	: OPEN_PAR num_expression CLOSE_PAR
+	| num_expression num_ope num_expression
+	| num_factor
+	;
+num_ope						
+	: ADDITION_OPE
+	| SUBTRACTION_OPE
+	| MULTIPLICATION_OPE
+	| DIVISION_OPE 
+	| MODULO_OPE;
+unary_ope					
+	: '+' | '-';
+num_factor					
+	: CHAR_LITERAL  
+	| (unary_ope)? INTEGER_LITERAL
+	| (unary_ope)? FLOAT_LITERAL 
+	;
 		/*** Added ***/
-var_func_expression			: OPEN_PAR var_func_expression CLOSE_PAR
-							| var_func_expression (relational_ope | num_ope) var_func_expression
-							| var_func_factor
-							;
-var_func_factor				: VARIABLE_IDENTIFIER
-							| funccall_statement
-							| num_factor
-							;
+var_func_expression			
+	: OPEN_PAR var_func_expression CLOSE_PAR
+	| var_func_expression (relational_ope | num_ope) var_func_expression
+	| var_func_factor
+	| OPEN_PAR (OPEN_PAR)+ var_func_expression CLOSE_PAR {notifyErrorListeners ("Uneven Parenthesis. Remove extra '('. ");} 
+	| OPEN_PAR var_func_expression CLOSE_PAR (CLOSE_PAR)+ {notifyErrorListeners ("Uneven Parenthesis. Remove extra ')'. ");}
+	;
+var_func_factor				
+	: VARIABLE_IDENTIFIER
+	| funccall_statement
+	| num_factor
+	;
 		/***      ***/
-bool_expression				: (NOT_OPE)? OPEN_PAR bool_expression CLOSE_PAR
-							| bool_expression logical_ope bool_expression
-							| num_expression relational_ope num_expression 
-							| string_expression (EQUAL_OPE | NOT_EQUAL_OPE) string_expression
-							| var_func_expression relational_ope var_func_expression
-							| BOOLEAN_LITERAL
-							| NOT_OPE OPEN_PAR BOOLEAN_LITERAL CLOSE_PAR
-							;
-relational_ope				: LESS_THAN_OPE				
-							| LESS_THAN_EQUAL_TO_OPE
-							| GREATER_THAN_OPE			
-							| GREATER_THAN_EQUAL_TO_OPE	
-							| EQUAL_OPE					
-							| NOT_EQUAL_OPE
-							;
-logical_ope					: AND_OPE
-							| OR_OPE
-							;
+bool_expression				
+	: (NOT_OPE)? OPEN_PAR bool_expression CLOSE_PAR
+	| bool_expression logical_ope bool_expression
+	| num_expression relational_ope num_expression 
+	| string_expression (EQUAL_OPE | NOT_EQUAL_OPE) string_expression
+	| var_func_expression relational_ope var_func_expression
+	| BOOLEAN_LITERAL
+	| NOT_OPE OPEN_PAR BOOLEAN_LITERAL CLOSE_PAR
+	;
+relational_ope				
+	: LESS_THAN_OPE				
+	| LESS_THAN_EQUAL_TO_OPE
+	| GREATER_THAN_OPE			
+	| GREATER_THAN_EQUAL_TO_OPE	
+	| EQUAL_OPE					
+	| NOT_EQUAL_OPE
+	;
+logical_ope					
+	: AND_OPE
+	| OR_OPE
+	;
 							
 							
 // Statements
-const_statement				: CONSTANT_KEYWORD VARIABLE_IDENTIFIER var_assignment_statement ;							
-var_assignment_statement	: ASSINGMENT_OPE assignment_factor;
-assignment_statement		: VARIABLE_IDENTIFIER ASSINGMENT_OPE assignment_factor
-							| VARIABLE_IDENTIFIER (INCREMENT_OPE | DECREMENT_OPE)
-							;
-assignment_factor			: expression
-							| num_factor
-							| STRING_LITERAL
-							| BOOLEAN_LITERAL
-							;
-funccall_statement       	: FUNCTION_CALL FUNCTION_IDENTIFIER OPEN_PAR (actual_parameter_list)? CLOSE_PAR;
-actual_parameter_list    	: actual_params;
-actual_params	         	: VARIABLE_IDENTIFIER ENUMERATION actual_params
-	         				| VARIABLE_IDENTIFIER
-                           	| expression ENUMERATION actual_params
-                           	| expression 
-                           	;
+const_statement				
+	: CONSTANT_KEYWORD VARIABLE_IDENTIFIER var_assignment_statement ;							
+var_assignment_statement	
+	: ASSINGMENT_OPE assignment_factor;
+assignment_statement		
+	: VARIABLE_IDENTIFIER ASSINGMENT_OPE assignment_factor
+	| VARIABLE_IDENTIFIER (INCREMENT_OPE | DECREMENT_OPE)
+	| VARIABLE_IDENTIFIER assignment_num_ope (expression | num_factor | STRING_LITERAL)
+	;
+assignment_num_ope
+	: ADDITION_ASSIGNMENT_OPE
+	| SUBTRACTION_ASSIGNMENT_OPE
+	| MULTIPLICATION_ASSIGNMENT_OPE
+	| DIVISION_ASSIGNMENT_OPE
+	| ADDITION_ASSIGNMENT_OPE
+	;
+assignment_factor			
+	: expression
+	| num_factor
+	| STRING_LITERAL
+	| BOOLEAN_LITERAL
+	;
+funccall_statement       	
+	: FUNCTION_CALL FUNCTION_IDENTIFIER OPEN_PAR (actual_parameter_list)? CLOSE_PAR;
+actual_parameter_list    	
+	: actual_params;
+actual_params	         	
+	: VARIABLE_IDENTIFIER ENUMERATION actual_params
+	| VARIABLE_IDENTIFIER
+    | expression ENUMERATION actual_params
+    | expression 
+    ;
 
-conditional_factor			: bool_expression
-							| BOOLEAN_LITERAL;
-if_statement				: IF_CONDITIONAL conditional_block 
-							  (ELSE_IF_CONDITIONAL conditional_block)*
-							  (ELSE_CONDITIONAL code_block)*;
-conditional_block			: OPEN_PAR conditional_factor CLOSE_PAR
-							  OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK
-							| OPEN_PAR conditional_factor CLOSE_PAR
-							  OPEN_CURLY_BRACK (statement)* {notifyErrorListeners("Missing closing '}'");} 
-							;
-code_block					: OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK;
+conditional_factor			
+	: bool_expression
+	| BOOLEAN_LITERAL
+	;
+if_statement				
+	: IF_CONDITIONAL conditional_block
+	  (ELSE_IF_CONDITIONAL conditional_block)*
+	  (ELSE_CONDITIONAL code_block)*;
 
-while_statement				: WHILE_LOOP conditional_block;
-do_while_statement			: DO_LOOP code_block WHILE_LOOP OPEN_PAR conditional_factor OPEN_PAR;
-for_statement				: FOR_LOOP OPEN_PAR 
-							  (assignment_statement | data_type assignment_statement) END 
-							  bool_expression END assignment_statement CLOSE_PAR code_block;
-return_statement			: RETURN (expression| STRING_LITERAL | BOOLEAN_LITERAL | num_factor);
-scan_statement				: SCAN OPEN_PAR VARIABLE_IDENTIFIER CLOSE_PAR;
-print_statement				: PRINT OPEN_PAR expression CLOSE_PAR
-							| PRINT_NL OPEN_PAR expression CLOSE_PAR
-							;
+conditional_block			
+	: OPEN_PAR conditional_factor CLOSE_PAR
+	  OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK
+	;
+code_block					
+	: OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK;
+	
+	
+while_statement				
+	: WHILE_LOOP conditional_block;
+do_while_statement			
+	: DO_LOOP code_block WHILE_LOOP OPEN_PAR conditional_factor CLOSE_PAR END
+	| DO_LOOP code_block WHILE_LOOP OPEN_PAR conditional_factor CLOSE_PAR {notifyErrorListeners("Insert ';' to complete statement'");} 
+	;
+for_statement				
+	: FOR_LOOP OPEN_PAR 
+	(assignment_statement | data_type assignment_statement) END 
+	bool_expression END assignment_statement CLOSE_PAR code_block;
+return_statement			
+	: RETURN (expression| STRING_LITERAL | BOOLEAN_LITERAL | num_factor);
+scan_statement				
+	: SCAN OPEN_PAR VARIABLE_IDENTIFIER CLOSE_PAR;
+print_statement				
+	: PRINT OPEN_PAR expression CLOSE_PAR
+	| PRINT_NL OPEN_PAR expression CLOSE_PAR
+	;
 
 
 
@@ -194,6 +246,11 @@ ADDITION_OPE				: '+';
 SUBTRACTION_OPE				: '-';
 MULTIPLICATION_OPE			: '*';
 DIVISION_OPE				: '/';
+ADDITION_ASSIGNMENT_OPE		: '+=';
+SUBTRACTION_ASSIGNMENT_OPE	: '-=';
+MULTIPLICATION_ASSIGNMENT_OPE : '*=';
+DIVISION_ASSIGNMENT_OPE		: '/=';
+MODULO_ASSIGNMENT_OPE		: '%=';
 MODULO_OPE					: '%';
 LESS_THAN_OPE				: '<';
 LESS_THAN_EQUAL_TO_OPE		: '<=';
