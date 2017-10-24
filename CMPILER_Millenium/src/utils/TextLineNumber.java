@@ -85,6 +85,7 @@ public class TextLineNumber extends JPanel
 
 		component.getDocument().addDocumentListener(this);
 		component.addCaretListener( this );
+		
 		component.addPropertyChangeListener("font", this);
 	}
 
@@ -479,7 +480,7 @@ public class TextLineNumber extends JPanel
 	}
 	
 	public void resetLineErrors(){
-		lineErrors.clear();;
+		lineErrors.clear();
 	}
 
 }

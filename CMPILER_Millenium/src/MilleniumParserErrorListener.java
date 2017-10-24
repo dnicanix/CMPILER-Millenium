@@ -48,46 +48,60 @@ public class MilleniumParserErrorListener implements ANTLRErrorListener{
 		offendingToken = offendingToken.toString().split("=")[1].split(",")[0];
 		//System.err.println("[SYNTAX ERROR]: " + msg + " (line " + line + ":" + charPositionInLine + ")");
 		
+		String errorType = "[SYNTAX ERROR]";
+		String errorLine = line + "";
+		String errorMsg = msg;
+		
 		if(msg.contains("mismatched input")){
+			
 			System.err.println
 					("[SYNTAX ERROR]: Input mismatched!" +
 							" Try replacing " + offendingToken + " or input onwards" +
 							". (line " + line + ":" + charPositionInLine + ")"
 					);
-		
+			
+			errorMsg = "Input mismatched! Try replacing " + offendingToken + " or input onwards.";
+
 		}else if(msg.contains("no viable")){
 			offendingToken = msg.split("input")[1];
+			
 			System.err.println
 				("[SYNTAX ERROR]: No viable alternative! " +
 						"Fix the input" + offendingToken + ". " + 
 						 "(line " + line + ":" + charPositionInLine + ")");
-		
-	
+			
+			errorMsg = "No viable alternative! Fix the input" + offendingToken + ".";
+			
 		}else if(msg.contains("token recognition")){
+			/*
 			System.err.println
-			("[SYNTAX ERROR]: Unrecognized token!! " +
+			("[SYNTAX ERROR]: Unrecognized token! " +
 					"Delete " + offendingToken + ". " + 
 					 "(line " + line + ":" + charPositionInLine + ")");
+			*/
+			errorMsg = "Unrecognized token! Delete " + offendingToken + ".";
 		}
 		else if(msg.contains("extraneous input")){
+			
 			System.err.println
 			("[SYNTAX ERROR]: Unnecessary input!! " +
 					"Replace " + offendingToken + ". " + 
 					 "(line " + line + ":" + charPositionInLine + ")");
+			
+			errorMsg = "Unnecessary input! Replace " + offendingToken + ".";
 		}else if(msg.contains("missing")){
+			
 			System.err.println
 			("[SYNTAX ERROR]: Missing token!! " +
 					"Try adding " + offendingToken + ". " + 
 					 "(line " + line + ":" + charPositionInLine + ")");
+			
+			errorMsg = "Missing token! Try adding " + offendingToken + ".";
 		}else{
 			System.err.println("[SYNTAX ERROR]: " + msg + " (line " + line + ":" + charPositionInLine + ")");
 		}
 		
-		mv.highlightError(line); //okay na
-		
-	
-		
-		//underlineError(arg5.getRecognizer(), (Token)arg1, line, charPositionInLine);
+		mv.addErrorMessages(errorType, errorLine, errorMsg);
 		
 	}
 

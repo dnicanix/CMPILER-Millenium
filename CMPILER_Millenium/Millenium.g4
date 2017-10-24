@@ -72,18 +72,27 @@ expression
 	| var_func_expression
 	| num_expression num_ope num_expression
 	| bool_expression
+	//errors
+	| num_expression num_ope (num_ope)+ num_expression {notifyErrorListeners ("Invalid number operator! Replace it wih '+', '-', '*', '/', or '%'.");} 
 	;
 		/*** Added ***/						
 string_expression			
 	: OPEN_PAR string_expression CLOSE_PAR
 	| string_expression ADDITION_OPE string_expression
 	| STRING_LITERAL | funccall_statement | VARIABLE_IDENTIFIER
+	//errors
+	| OPEN_PAR (OPEN_PAR)+ string_expression CLOSE_PAR {notifyErrorListeners ("Uneven Parenthesis. Remove extra '('. ");} 
+	| OPEN_PAR string_expression CLOSE_PAR (CLOSE_PAR)+ {notifyErrorListeners ("Uneven Parenthesis. Remove extra ')'. ");}
 	;
 		/*** 	   ***/
 num_expression				
 	: OPEN_PAR num_expression CLOSE_PAR
 	| num_expression num_ope num_expression
 	| num_factor
+	//errors
+	| OPEN_PAR (OPEN_PAR)+ num_expression CLOSE_PAR {notifyErrorListeners ("Uneven Parenthesis. Remove extra '('. ");} 
+	| OPEN_PAR num_expression CLOSE_PAR (CLOSE_PAR)+ {notifyErrorListeners ("Uneven Parenthesis. Remove extra ')'. ");}
+	| num_expression num_ope (num_ope)+ num_expression {notifyErrorListeners ("Invalid number operator! Replace it wih '+', '-', '*', '/', or '%'.");} 
 	;
 num_ope						
 	: ADDITION_OPE
@@ -103,8 +112,10 @@ var_func_expression
 	: OPEN_PAR var_func_expression CLOSE_PAR
 	| var_func_expression (relational_ope | num_ope) var_func_expression
 	| var_func_factor
+	//errors
 	| OPEN_PAR (OPEN_PAR)+ var_func_expression CLOSE_PAR {notifyErrorListeners ("Uneven Parenthesis. Remove extra '('. ");} 
 	| OPEN_PAR var_func_expression CLOSE_PAR (CLOSE_PAR)+ {notifyErrorListeners ("Uneven Parenthesis. Remove extra ')'. ");}
+	| var_func_expression num_ope (num_ope)+ var_func_expression {notifyErrorListeners ("Invalid number operator! Replace it wih '+', '-', '*', '/', or '%'.");} 
 	;
 var_func_factor				
 	: VARIABLE_IDENTIFIER
@@ -120,6 +131,9 @@ bool_expression
 	| var_func_expression relational_ope var_func_expression
 	| BOOLEAN_LITERAL
 	| NOT_OPE OPEN_PAR BOOLEAN_LITERAL CLOSE_PAR
+	//errors
+	| (NOT_OPE)? OPEN_PAR (OPEN_PAR)+ bool_expression CLOSE_PAR {notifyErrorListeners ("Uneven Parenthesis. Remove extra '('. ");} 
+	| (NOT_OPE)? OPEN_PAR bool_expression CLOSE_PAR (CLOSE_PAR)+ {notifyErrorListeners ("Uneven Parenthesis. Remove extra ')'. ");}
 	;
 relational_ope				
 	: LESS_THAN_OPE				
@@ -133,8 +147,7 @@ logical_ope
 	: AND_OPE
 	| OR_OPE
 	;
-							
-							
+													
 // Statements
 const_statement				
 	: CONSTANT_KEYWORD VARIABLE_IDENTIFIER var_assignment_statement ;							
@@ -184,8 +197,6 @@ conditional_block
 	;
 code_block					
 	: OPEN_CURLY_BRACK (statement)* CLOSE_CURLY_BRACK;
-	
-	
 while_statement				
 	: WHILE_LOOP conditional_block;
 do_while_statement			
@@ -194,10 +205,19 @@ do_while_statement
 	;
 for_statement				
 	: FOR_LOOP OPEN_PAR 
-	(assignment_statement | data_type assignment_statement) END 
-	bool_expression END assignment_statement CLOSE_PAR code_block;
+	(for_assignment_statement | data_type for_assignment_statement) END 
+	bool_expression END assignment_statement CLOSE_PAR code_block
+	;
+for_assignment_statement		
+	: VARIABLE_IDENTIFIER ASSINGMENT_OPE assignment_factor
+	| VARIABLE_IDENTIFIER (INCREMENT_OPE | DECREMENT_OPE)
+	| VARIABLE_IDENTIFIER assignment_num_ope (expression | num_factor | STRING_LITERAL)
+	| VARIABLE_IDENTIFIER {notifyErrorListeners("Variable must be initialized!");} 
+	;
 return_statement			
-	: RETURN (expression| STRING_LITERAL | BOOLEAN_LITERAL | num_factor);
+	: RETURN (expression| STRING_LITERAL | BOOLEAN_LITERAL | num_factor)
+	| RETURN data_type {notifyErrorListeners("Invalid return type! Replace with a data type value or expression.");} 
+	;
 scan_statement				
 	: SCAN OPEN_PAR VARIABLE_IDENTIFIER CLOSE_PAR;
 print_statement				

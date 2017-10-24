@@ -7,9 +7,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.Highlighter;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.JTextArea;
@@ -22,18 +30,17 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import utils.CustomOutputStream;
+import utils.LinePainter;
 import utils.TextLineNumber;
-
-
-
-
-
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,14 +54,18 @@ public class MilleniumView implements ActionListener{
 	private JButton btnScan;
 	private JTextPane srcCodeTextArea;
 	private JScrollPane srcCodeScrollPane, 
-						consoleScrollPane, listOfTokensScrollPane;
+						errorScrollPane, listOfTokensScrollPane, consoleScrollPane;
 	private JTabbedPane tabbedPane;
+	private JTable errorTable;
 	private JTextArea consoleTextArea, listOfTokensTextArea;
 	private int widthCodeScrollPane, heightCodeScrollPane, 
 				widthConsoleScrollPane, heightConsoleScrollPane,
 				yTabbedPane, widthTabbedPane, heightTabbedPane;
-	TextLineNumber tln;
-	PrintStream printStream;
+	private ListSelectionModel consoleModel;
+	private TableModel model;
+	private TextLineNumber tln;
+	private LinePainter linePainter;
+	private PrintStream printStream;
 	
 
 	private MilleniumController milleniumController;
@@ -153,6 +164,8 @@ public class MilleniumView implements ActionListener{
 		//Editor
 		srcCodeTextArea = new JTextPane(doc);
 		srcCodeTextArea.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		Highlighter hilit = new DefaultHighlighter();
+		Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.yellow);
 		//srcCodeTextArea.setLineWrap(true);
 		
 		srcCodeScrollPane = new JScrollPane(srcCodeTextArea);
@@ -160,6 +173,7 @@ public class MilleniumView implements ActionListener{
 		srcCodeScrollPane.setBounds(50, 100, widthCodeScrollPane, heightCodeScrollPane);
 		
 		tln = new TextLineNumber(srcCodeTextArea);
+		linePainter = new LinePainter(srcCodeTextArea);
 		srcCodeScrollPane.setRowHeaderView(tln);
 		
 		//Contains console and list of tokens text areas
@@ -180,6 +194,56 @@ public class MilleniumView implements ActionListener{
 		consoleScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		consoleScrollPane.setBounds(50, 100, 1250, 400);
 		tabbedPane.addTab("Console", null, consoleScrollPane);
+		
+		String[] columnHeaders = {"Syntax Error", "Line Number", "Description"};
+		
+		model = new DefaultTableModel(null, columnHeaders)
+		  {
+		    public boolean isCellEditable(int row, int column)
+		    {
+		      return false;//This causes all cells to be not editable
+		    }
+		  };
+		
+		errorTable = new JTable(model);
+		errorTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		errorTable.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 15));
+		errorTable.setRowSelectionAllowed(true);
+		errorTable.getTableHeader().setReorderingAllowed(false);
+		errorTable.setVisible(true);
+		errorTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		errorTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		TableColumnModel columnModel = errorTable.getColumnModel();
+		columnModel.getColumn(0).setPreferredWidth(150);
+		columnModel.getColumn(1).setPreferredWidth(100);
+		columnModel.getColumn(2).setPreferredWidth(1000);
+		
+		errorScrollPane = new JScrollPane(errorTable);
+		errorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		errorScrollPane.setBounds(50, 100, 1250, 400);
+		tabbedPane.addTab("Errors", null, errorScrollPane);
+		
+		consoleModel = errorTable.getSelectionModel();
+		consoleModel.addListSelectionListener(new ListSelectionListener(){
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getValueIsAdjusting()){
+					return;
+				}
+				consoleModel = (ListSelectionModel)e.getSource();
+				
+				if(!consoleModel.isSelectionEmpty()){
+					int selectedRow = consoleModel.getMinSelectionIndex();
+					String errorLine = (String) model.getValueAt(selectedRow, 1);
+				}
+			}
+			
+		});
+		
+		 
 		
 		//For output of lexical analyzer (list of tokens)
 		listOfTokensTextArea = new JTextArea();
@@ -241,6 +305,11 @@ public class MilleniumView implements ActionListener{
 		tln.repaint();
 	}
 	
+	
+	public void addErrorMessages(String errorType, String errorLine, String errorMsg){
+		((DefaultTableModel) model).addRow(new Object[] {errorType, errorLine, errorMsg});
+		highlightError(Integer.parseInt(errorLine.split(":")[0]));
+	}
 	
 	
 }
