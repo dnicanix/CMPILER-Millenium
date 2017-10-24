@@ -277,6 +277,16 @@ public interface MilleniumListener extends ParseTreeListener {
 	 */
 	void exitAssignment_statement(MilleniumParser.Assignment_statementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MilleniumParser#assignment_num_ope}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment_num_ope(MilleniumParser.Assignment_num_opeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MilleniumParser#assignment_num_ope}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment_num_ope(MilleniumParser.Assignment_num_opeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MilleniumParser#assignment_factor}.
 	 * @param ctx the parse tree
 	 */

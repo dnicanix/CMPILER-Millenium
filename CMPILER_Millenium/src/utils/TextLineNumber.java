@@ -3,7 +3,9 @@ package utils;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -49,6 +51,8 @@ public class TextLineNumber extends JPanel
     private int lastLine;
 
 	private HashMap<String, FontMetrics> fonts;
+	private ArrayList<Integer> lineErrors = new ArrayList<Integer>();
+	
 
 	/**
 	 *	Create a line number component for a text component. This minimum
@@ -75,7 +79,7 @@ public class TextLineNumber extends JPanel
 		setFont( component.getFont() );
 
 		setBorderGap( 5 );
-		setCurrentLineForeground( Color.RED );
+		setCurrentLineForeground( Color.BLUE );
 		setDigitAlignment( RIGHT );
 		setMinimumDisplayDigits( minimumDisplayDigits );
 
@@ -253,8 +257,18 @@ public class TextLineNumber extends JPanel
             {
     			if (isCurrentLine(rowStartOffset))
     				g.setColor( getCurrentLineForeground() );
-    			else
+    			else{
+    				String lineNumber = getTextLineNumber(rowStartOffset);
     				g.setColor( getForeground() );
+    				
+    				int row = Integer.parseInt(lineNumber);
+    				for(int i = 0; i < lineErrors.size(); i++){
+    					if(lineErrors.get(i) == row){
+    						g.setColor(Color.RED);
+    					}
+    				}
+    			}
+    				
 
     			//  Get the line number as a string and then determine the
     			//  "X" and "Y" offsets for drawing the string.
@@ -264,7 +278,6 @@ public class TextLineNumber extends JPanel
     			int x = getOffsetX(availableWidth, stringWidth) + insets.left;
 				int y = getOffsetY(rowStartOffset, fontMetrics);
     			g.drawString(lineNumber, x, y);
-
     			//  Move to the next row
 
     			rowStartOffset = Utilities.getRowEnd(component, rowStartOffset) + 1;
@@ -459,4 +472,14 @@ public class TextLineNumber extends JPanel
 			}
 		}
 	}
+	
+	public void addLineError(int line){
+		lineErrors.add(line);
+		repaint();
+	}
+	
+	public void resetLineErrors(){
+		lineErrors.clear();;
+	}
+
 }

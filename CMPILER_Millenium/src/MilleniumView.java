@@ -27,10 +27,12 @@ import utils.TextLineNumber;
 
 
 
+
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 
 public class MilleniumView implements ActionListener{
@@ -48,6 +50,7 @@ public class MilleniumView implements ActionListener{
 	TextLineNumber tln;
 	PrintStream printStream;
 	
+
 	private MilleniumController milleniumController;
 	/**
 	 * Create the application.
@@ -149,16 +152,16 @@ public class MilleniumView implements ActionListener{
 			consoleTextArea.setText("");
 			String tokens = milleniumController.getLexerTokens(srcCodeTextArea.getText());
 			listOfTokensTextArea.setText(tokens);
+			tln.resetLineErrors();
 			milleniumController.parse();
 		}
 	}
 	
-	public void changeLineNumberColor(int lineNum){
-		tln.setCurrentLineForeground(Color.GREEN);
+	public void highlightError(int line){
+		tln.addLineError(line);
 		tln.repaint();
-		srcCodeTextArea.repaint();
-		srcCodeScrollPane.repaint();
 	}
+	
 	
 	
 }

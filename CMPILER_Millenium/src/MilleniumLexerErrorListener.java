@@ -42,7 +42,6 @@ public class MilleniumLexerErrorListener implements ANTLRErrorListener{
 			int charPositionInLine, String msg, RecognitionException e) {
 		// TODO Auto-generated method stub
 		System.err.println("[SYNTAX ERROR]: " + msg + " (line " + line + ":" + charPositionInLine + ")");		
-		mv.changeLineNumberColor(line);
 	}
 
 

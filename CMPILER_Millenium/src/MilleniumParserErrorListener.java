@@ -42,12 +42,52 @@ public class MilleniumParserErrorListener implements ANTLRErrorListener{
 	}
 
 	@Override
-	public void syntaxError(Recognizer<?, ?> arg0, Object arg1, int line,
+	public void syntaxError(Recognizer<?, ?> arg0, Object offendingToken, int line,
 			int charPositionInLine, String msg, RecognitionException arg5) {
 		// TODO Auto-generated method stub
-		System.err.println("[SYNTAX ERROR]: " + msg + " (line " + line + ":" + charPositionInLine + ")");	
+		offendingToken = offendingToken.toString().split("=")[1].split(",")[0];
+		//System.err.println("[SYNTAX ERROR]: " + msg + " (line " + line + ":" + charPositionInLine + ")");
+		
+		if(msg.contains("mismatched input")){
+			System.err.println
+					("[SYNTAX ERROR]: Input mismatched!" +
+							" Try replacing " + offendingToken + " or input onwards" +
+							". (line " + line + ":" + charPositionInLine + ")"
+					);
+		
+		}else if(msg.contains("no viable")){
+			offendingToken = msg.split("input")[1];
+			System.err.println
+				("[SYNTAX ERROR]: No viable alternative! " +
+						"Fix the input" + offendingToken + ". " + 
+						 "(line " + line + ":" + charPositionInLine + ")");
+		
+	
+		}else if(msg.contains("token recognition")){
+			System.err.println
+			("[SYNTAX ERROR]: Unrecognized token!! " +
+					"Delete " + offendingToken + ". " + 
+					 "(line " + line + ":" + charPositionInLine + ")");
+		}
+		else if(msg.contains("extraneous input")){
+			System.err.println
+			("[SYNTAX ERROR]: Unnecessary input!! " +
+					"Replace " + offendingToken + ". " + 
+					 "(line " + line + ":" + charPositionInLine + ")");
+		}else if(msg.contains("missing")){
+			System.err.println
+			("[SYNTAX ERROR]: Missing token!! " +
+					"Try adding " + offendingToken + ". " + 
+					 "(line " + line + ":" + charPositionInLine + ")");
+		}else{
+			System.err.println("[SYNTAX ERROR]: " + msg + " (line " + line + ":" + charPositionInLine + ")");
+		}
+		
+		mv.highlightError(line); //okay na
+		
+	
+		
 		//underlineError(arg5.getRecognizer(), (Token)arg1, line, charPositionInLine);
-		mv.changeLineNumberColor(line);
 		
 	}
 
