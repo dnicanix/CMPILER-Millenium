@@ -1,6 +1,7 @@
-// Generated from Millenium.g4 by ANTLR 4.7
+// Generated from Millenium.g4 by ANTLR 4.4
 
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -15,516 +16,516 @@ public class MilleniumBaseListener implements MilleniumListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(MilleniumParser.ProgramContext ctx) { }
+	@Override public void enterFunction_return(@NotNull MilleniumParser.Function_returnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(MilleniumParser.ProgramContext ctx) { }
+	@Override public void exitFunction_return(@NotNull MilleniumParser.Function_returnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(MilleniumParser.StatementContext ctx) { }
+	@Override public void enterFunction_block(@NotNull MilleniumParser.Function_blockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(MilleniumParser.StatementContext ctx) { }
+	@Override public void exitFunction_block(@NotNull MilleniumParser.Function_blockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVardecl_list(MilleniumParser.Vardecl_listContext ctx) { }
+	@Override public void enterActual_params(@NotNull MilleniumParser.Actual_paramsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVardecl_list(MilleniumParser.Vardecl_listContext ctx) { }
+	@Override public void exitActual_params(@NotNull MilleniumParser.Actual_paramsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_decl(MilleniumParser.Var_declContext ctx) { }
+	@Override public void enterAssignment_factor(@NotNull MilleniumParser.Assignment_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_decl(MilleniumParser.Var_declContext ctx) { }
+	@Override public void exitAssignment_factor(@NotNull MilleniumParser.Assignment_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx) { }
+	@Override public void enterBool_expression(@NotNull MilleniumParser.Bool_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx) { }
+	@Override public void exitBool_expression(@NotNull MilleniumParser.Bool_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray_size(MilleniumParser.Array_sizeContext ctx) { }
+	@Override public void enterProgram(@NotNull MilleniumParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray_size(MilleniumParser.Array_sizeContext ctx) { }
+	@Override public void exitProgram(@NotNull MilleniumParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterData_type(MilleniumParser.Data_typeContext ctx) { }
+	@Override public void enterLogical_ope(@NotNull MilleniumParser.Logical_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitData_type(MilleniumParser.Data_typeContext ctx) { }
+	@Override public void exitLogical_ope(@NotNull MilleniumParser.Logical_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_declaration(MilleniumParser.Function_declarationContext ctx) { }
+	@Override public void enterFunccall_statement(@NotNull MilleniumParser.Funccall_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_declaration(MilleniumParser.Function_declarationContext ctx) { }
+	@Override public void exitFunccall_statement(@NotNull MilleniumParser.Funccall_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_return(MilleniumParser.Function_returnContext ctx) { }
+	@Override public void enterActual_parameter_list(@NotNull MilleniumParser.Actual_parameter_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_return(MilleniumParser.Function_returnContext ctx) { }
+	@Override public void exitActual_parameter_list(@NotNull MilleniumParser.Actual_parameter_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_noreturn(MilleniumParser.Function_noreturnContext ctx) { }
+	@Override public void enterRelational_ope(@NotNull MilleniumParser.Relational_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_noreturn(MilleniumParser.Function_noreturnContext ctx) { }
+	@Override public void exitRelational_ope(@NotNull MilleniumParser.Relational_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameters(MilleniumParser.ParametersContext ctx) { }
+	@Override public void enterNum_factor(@NotNull MilleniumParser.Num_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameters(MilleniumParser.ParametersContext ctx) { }
+	@Override public void exitNum_factor(@NotNull MilleniumParser.Num_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_block(MilleniumParser.Function_blockContext ctx) { }
+	@Override public void enterDo_while_statement(@NotNull MilleniumParser.Do_while_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_block(MilleniumParser.Function_blockContext ctx) { }
+	@Override public void exitDo_while_statement(@NotNull MilleniumParser.Do_while_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMain_function(MilleniumParser.Main_functionContext ctx) { }
+	@Override public void enterStatement(@NotNull MilleniumParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMain_function(MilleniumParser.Main_functionContext ctx) { }
+	@Override public void exitStatement(@NotNull MilleniumParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(MilleniumParser.ExpressionContext ctx) { }
+	@Override public void enterFunction_noreturn(@NotNull MilleniumParser.Function_noreturnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(MilleniumParser.ExpressionContext ctx) { }
+	@Override public void exitFunction_noreturn(@NotNull MilleniumParser.Function_noreturnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterString_expression(MilleniumParser.String_expressionContext ctx) { }
+	@Override public void enterNum_expression(@NotNull MilleniumParser.Num_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitString_expression(MilleniumParser.String_expressionContext ctx) { }
+	@Override public void exitNum_expression(@NotNull MilleniumParser.Num_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNum_expression(MilleniumParser.Num_expressionContext ctx) { }
+	@Override public void enterWhile_statement(@NotNull MilleniumParser.While_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNum_expression(MilleniumParser.Num_expressionContext ctx) { }
+	@Override public void exitWhile_statement(@NotNull MilleniumParser.While_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNum_ope(MilleniumParser.Num_opeContext ctx) { }
+	@Override public void enterArray_size(@NotNull MilleniumParser.Array_sizeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNum_ope(MilleniumParser.Num_opeContext ctx) { }
+	@Override public void exitArray_size(@NotNull MilleniumParser.Array_sizeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnary_ope(MilleniumParser.Unary_opeContext ctx) { }
+	@Override public void enterVardecl_list(@NotNull MilleniumParser.Vardecl_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnary_ope(MilleniumParser.Unary_opeContext ctx) { }
+	@Override public void exitVardecl_list(@NotNull MilleniumParser.Vardecl_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNum_factor(MilleniumParser.Num_factorContext ctx) { }
+	@Override public void enterFunction_declaration(@NotNull MilleniumParser.Function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNum_factor(MilleniumParser.Num_factorContext ctx) { }
+	@Override public void exitFunction_declaration(@NotNull MilleniumParser.Function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_func_expression(MilleniumParser.Var_func_expressionContext ctx) { }
+	@Override public void enterConditional_block(@NotNull MilleniumParser.Conditional_blockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_func_expression(MilleniumParser.Var_func_expressionContext ctx) { }
+	@Override public void exitConditional_block(@NotNull MilleniumParser.Conditional_blockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_func_factor(MilleniumParser.Var_func_factorContext ctx) { }
+	@Override public void enterReturn_statement(@NotNull MilleniumParser.Return_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_func_factor(MilleniumParser.Var_func_factorContext ctx) { }
+	@Override public void exitReturn_statement(@NotNull MilleniumParser.Return_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBool_expression(MilleniumParser.Bool_expressionContext ctx) { }
+	@Override public void enterVar_func_expression(@NotNull MilleniumParser.Var_func_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBool_expression(MilleniumParser.Bool_expressionContext ctx) { }
+	@Override public void exitVar_func_expression(@NotNull MilleniumParser.Var_func_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelational_ope(MilleniumParser.Relational_opeContext ctx) { }
+	@Override public void enterExpression(@NotNull MilleniumParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelational_ope(MilleniumParser.Relational_opeContext ctx) { }
+	@Override public void exitExpression(@NotNull MilleniumParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogical_ope(MilleniumParser.Logical_opeContext ctx) { }
+	@Override public void enterConst_statement(@NotNull MilleniumParser.Const_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogical_ope(MilleniumParser.Logical_opeContext ctx) { }
+	@Override public void exitConst_statement(@NotNull MilleniumParser.Const_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConst_statement(MilleniumParser.Const_statementContext ctx) { }
+	@Override public void enterNum_ope(@NotNull MilleniumParser.Num_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConst_statement(MilleniumParser.Const_statementContext ctx) { }
+	@Override public void exitNum_ope(@NotNull MilleniumParser.Num_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx) { }
+	@Override public void enterAssignment_statement(@NotNull MilleniumParser.Assignment_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx) { }
+	@Override public void exitAssignment_statement(@NotNull MilleniumParser.Assignment_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment_statement(MilleniumParser.Assignment_statementContext ctx) { }
+	@Override public void enterCode_block(@NotNull MilleniumParser.Code_blockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment_statement(MilleniumParser.Assignment_statementContext ctx) { }
+	@Override public void exitCode_block(@NotNull MilleniumParser.Code_blockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment_factor(MilleniumParser.Assignment_factorContext ctx) { }
+	@Override public void enterString_expression(@NotNull MilleniumParser.String_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment_factor(MilleniumParser.Assignment_factorContext ctx) { }
+	@Override public void exitString_expression(@NotNull MilleniumParser.String_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunccall_statement(MilleniumParser.Funccall_statementContext ctx) { }
+	@Override public void enterFor_statement(@NotNull MilleniumParser.For_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunccall_statement(MilleniumParser.Funccall_statementContext ctx) { }
+	@Override public void exitFor_statement(@NotNull MilleniumParser.For_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterActual_parameter_list(MilleniumParser.Actual_parameter_listContext ctx) { }
+	@Override public void enterVar_func_factor(@NotNull MilleniumParser.Var_func_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitActual_parameter_list(MilleniumParser.Actual_parameter_listContext ctx) { }
+	@Override public void exitVar_func_factor(@NotNull MilleniumParser.Var_func_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterActual_params(MilleniumParser.Actual_paramsContext ctx) { }
+	@Override public void enterPrint_statement(@NotNull MilleniumParser.Print_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitActual_params(MilleniumParser.Actual_paramsContext ctx) { }
+	@Override public void exitPrint_statement(@NotNull MilleniumParser.Print_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditional_factor(MilleniumParser.Conditional_factorContext ctx) { }
+	@Override public void enterScan_statement(@NotNull MilleniumParser.Scan_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditional_factor(MilleniumParser.Conditional_factorContext ctx) { }
+	@Override public void exitScan_statement(@NotNull MilleniumParser.Scan_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf_statement(MilleniumParser.If_statementContext ctx) { }
+	@Override public void enterVar_identifier_list(@NotNull MilleniumParser.Var_identifier_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf_statement(MilleniumParser.If_statementContext ctx) { }
+	@Override public void exitVar_identifier_list(@NotNull MilleniumParser.Var_identifier_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditional_block(MilleniumParser.Conditional_blockContext ctx) { }
+	@Override public void enterUnary_ope(@NotNull MilleniumParser.Unary_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditional_block(MilleniumParser.Conditional_blockContext ctx) { }
+	@Override public void exitUnary_ope(@NotNull MilleniumParser.Unary_opeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCode_block(MilleniumParser.Code_blockContext ctx) { }
+	@Override public void enterMain_function(@NotNull MilleniumParser.Main_functionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCode_block(MilleniumParser.Code_blockContext ctx) { }
+	@Override public void exitMain_function(@NotNull MilleniumParser.Main_functionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhile_statement(MilleniumParser.While_statementContext ctx) { }
+	@Override public void enterData_type(@NotNull MilleniumParser.Data_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhile_statement(MilleniumParser.While_statementContext ctx) { }
+	@Override public void exitData_type(@NotNull MilleniumParser.Data_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDo_while_statement(MilleniumParser.Do_while_statementContext ctx) { }
+	@Override public void enterConditional_factor(@NotNull MilleniumParser.Conditional_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDo_while_statement(MilleniumParser.Do_while_statementContext ctx) { }
+	@Override public void exitConditional_factor(@NotNull MilleniumParser.Conditional_factorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFor_statement(MilleniumParser.For_statementContext ctx) { }
+	@Override public void enterIf_statement(@NotNull MilleniumParser.If_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFor_statement(MilleniumParser.For_statementContext ctx) { }
+	@Override public void exitIf_statement(@NotNull MilleniumParser.If_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturn_statement(MilleniumParser.Return_statementContext ctx) { }
+	@Override public void enterVar_decl(@NotNull MilleniumParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturn_statement(MilleniumParser.Return_statementContext ctx) { }
+	@Override public void exitVar_decl(@NotNull MilleniumParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScan_statement(MilleniumParser.Scan_statementContext ctx) { }
+	@Override public void enterParameters(@NotNull MilleniumParser.ParametersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScan_statement(MilleniumParser.Scan_statementContext ctx) { }
+	@Override public void exitParameters(@NotNull MilleniumParser.ParametersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrint_statement(MilleniumParser.Print_statementContext ctx) { }
+	@Override public void enterVar_assignment_statement(@NotNull MilleniumParser.Var_assignment_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrint_statement(MilleniumParser.Print_statementContext ctx) { }
+	@Override public void exitVar_assignment_statement(@NotNull MilleniumParser.Var_assignment_statementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEveryRule(ParserRuleContext ctx) { }
+	@Override public void enterEveryRule(@NotNull ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEveryRule(ParserRuleContext ctx) { }
+	@Override public void exitEveryRule(@NotNull ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void visitTerminal(TerminalNode node) { }
+	@Override public void visitTerminal(@NotNull TerminalNode node) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void visitErrorNode(ErrorNode node) { }
+	@Override public void visitErrorNode(@NotNull ErrorNode node) { }
 }

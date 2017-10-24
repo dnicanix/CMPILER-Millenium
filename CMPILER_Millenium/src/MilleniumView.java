@@ -7,7 +7,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -37,7 +43,7 @@ public class MilleniumView implements ActionListener{
 
 	private JFrame frame;
 	private JButton btnScan;
-	private JTextArea srcCodeTextArea;
+	private JTextPane srcCodeTextArea;
 	private JScrollPane srcCodeScrollPane, 
 						consoleScrollPane, listOfTokensScrollPane;
 	private JTabbedPane tabbedPane;
@@ -49,6 +55,60 @@ public class MilleniumView implements ActionListener{
 	PrintStream printStream;
 	
 	private MilleniumController milleniumController;
+	
+	final StyleContext cont = StyleContext.getDefaultStyleContext();
+    final AttributeSet attrRed = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, new Color(178, 0, 0));
+    final AttributeSet attrBlue = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, new Color(25, 140, 255));
+    final AttributeSet attrGreen = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, new Color(0, 76, 0));
+    final AttributeSet attrBlack = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
+    DefaultStyledDocument doc = new DefaultStyledDocument() {
+        public void insertString (int offset, String str, AttributeSet a) throws BadLocationException {
+            super.insertString(offset, str, a);
+
+            String text = getText(0, getLength());
+            int before = findLastNonWordChar(text, offset);
+            if (before < 0) before = 0;
+            int after = findFirstNonWordChar(text, offset + str.length());
+            int wordL = before;
+            int wordR = before;
+
+            while (wordR <= after) {
+                if (wordR == after || String.valueOf(text.charAt(wordR)).matches("\\W")) {
+                    if (text.substring(wordL, wordR).matches("(\\W)*(digitz|weh|lutang|Msg|single|walangibabalik)"))
+                        setCharacterAttributes(wordL, wordR - wordL, attrRed, false);
+                    else if (text.substring(wordL, wordR).matches("(\\W)*(priority|optionlang|nochoice|willingtowait|hanggatkeri|gora)"))
+                        setCharacterAttributes(wordL, wordR - wordL, attrBlue, false);
+                    else if (text.substring(wordL, wordR).matches("(\\W)*(#|consistent|shoutout|LEZGO|uwina|walangibabalik|yas|deins|post|gimmeinput)"))
+                        setCharacterAttributes(wordL, wordR - wordL, attrGreen, false);
+                    else
+                        setCharacterAttributes(wordL, wordR - wordL, attrBlack, false);
+                    wordL = wordR;
+                }
+                wordR++;
+            }
+        }
+
+        public void remove (int offs, int len) throws BadLocationException {
+            super.remove(offs, len);
+
+            String text = getText(0, getLength());
+            int before = findLastNonWordChar(text, offs);
+            if (before < 0) before = 0;
+            int after = findFirstNonWordChar(text, offs);
+
+            if (text.substring(before, after).matches("(\\W)*(digitz|weh|lutang|Msg|single|walangibabalik)")) {
+                setCharacterAttributes(before, after - before, attrRed, false);
+            } else if (text.substring(before, after).matches("(\\W)*(priority|optionlang|nochoice|willingtowait|hanggatkeri|gora)")){
+            	setCharacterAttributes(before, after - before, attrBlue, false);
+            } else if (text.substring(before, after).matches("(\\W)*(#|consistent|shoutout|LEZGO|uwina|walangibabalik|yas|deins|post|gimmeinput)")){
+            	setCharacterAttributes(before, after - before, attrBlue, false);
+            }
+            else {
+                setCharacterAttributes(before, after - before, attrBlack, false);
+            }
+        }
+    };
+	
 	/**
 	 * Create the application.
 	 */
@@ -80,7 +140,7 @@ public class MilleniumView implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		btnScan = new JButton("Scan");
+		btnScan = new JButton("Run");
 		btnScan.setBounds(50, 40, 100, 30);
 		btnScan.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnScan.setForeground(Color.BLACK);
@@ -88,9 +148,9 @@ public class MilleniumView implements ActionListener{
 		btnScan.addActionListener(this);
 		
 		//Editor
-		srcCodeTextArea = new JTextArea();
+		srcCodeTextArea = new JTextPane(doc);
 		srcCodeTextArea.setFont(new Font("Monospaced", Font.PLAIN, 15));
-		srcCodeTextArea.setLineWrap(true);
+		//srcCodeTextArea.setLineWrap(true);
 		
 		srcCodeScrollPane = new JScrollPane(srcCodeTextArea);
 		srcCodeScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -140,6 +200,25 @@ public class MilleniumView implements ActionListener{
 		System.setOut(printStream);
 		System.setErr(printStream);
 		
+	}
+	
+	private int findLastNonWordChar (String text, int index) {
+		while (--index >= 0) {
+			if (String.valueOf(text.charAt(index)).matches("\\W")) {
+				break;
+			}
+		}
+	        return index;
+	}
+
+	private int findFirstNonWordChar (String text, int index) {
+		while (index < text.length()) {
+			if (String.valueOf(text.charAt(index)).matches("\\W")) {
+				break;
+	        }
+			index++;
+		}
+		return index;
 	}
 
 	@Override
