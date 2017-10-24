@@ -7,6 +7,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
@@ -22,13 +28,25 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import utils.CustomOutputStream;
 import utils.TextLineNumber;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -49,10 +67,13 @@ public class MilleniumView implements ActionListener{
 	private JScrollPane srcCodeScrollPane, 
 						consoleScrollPane, listOfTokensScrollPane;
 	private JTabbedPane tabbedPane;
+	private JTable consoleTable;
 	private JTextArea consoleTextArea, listOfTokensTextArea;
 	private int widthCodeScrollPane, heightCodeScrollPane, 
 				widthConsoleScrollPane, heightConsoleScrollPane,
 				yTabbedPane, widthTabbedPane, heightTabbedPane;
+	private ListSelectionModel consoleModel;
+	private TableModel model;
 	TextLineNumber tln;
 	PrintStream printStream;
 	
@@ -176,10 +197,69 @@ public class MilleniumView implements ActionListener{
 		consoleTextArea.setForeground(Color.BLACK);
 		consoleTextArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		consoleScrollPane = new JScrollPane(consoleTextArea);
+		String[] columnHeaders = {"Syntax Error", "Line Number", "Description"};
+		
+		Object[][] data = {
+				{"Error 1", "Line 2:1", "Try this"},
+				{"Error 2", "Line 3:17", "Try this Try this Try this"},
+				{"Error 1", "Line 2:1", "Try this"},
+				{"Error 2", "Line 3:17", "Try this Try this Try this"},
+				{"Error 1", "Line 2:1", "Try this"},
+				{"Error 2", "Line 3:17", "Try this Try this Try this"},
+				{"Error 1", "Line 2:1", "Try this"},
+				{"Error 2", "Line 3:17", "Try this Try this Try this"},
+				
+		};
+		
+		model = new DefaultTableModel(data, columnHeaders)
+		  {
+		    public boolean isCellEditable(int row, int column)
+		    {
+		      return false;//This causes all cells to be not editable
+		    }
+		  };
+		
+		consoleTable = new JTable(model);
+		consoleTable.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		consoleTable.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 15));
+		consoleTable.setRowSelectionAllowed(true);
+		consoleTable.getTableHeader().setReorderingAllowed(false);
+		consoleTable.setVisible(true);
+		consoleTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		consoleTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		TableColumnModel columnModel = consoleTable.getColumnModel();
+		columnModel.getColumn(0).setPreferredWidth(150);
+		columnModel.getColumn(1).setPreferredWidth(100);
+		columnModel.getColumn(2).setPreferredWidth(1000);
+		
+		consoleScrollPane = new JScrollPane(consoleTable);
 		consoleScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		consoleScrollPane.setBounds(50, 100, 1250, 400);
 		tabbedPane.addTab("Console", null, consoleScrollPane);
+		
+		consoleModel = consoleTable.getSelectionModel();
+		consoleModel.addListSelectionListener(new ListSelectionListener(){
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+				if(e.getValueIsAdjusting()){
+					return;
+				}
+				consoleModel = (ListSelectionModel)e.getSource();
+				
+				if(!consoleModel.isSelectionEmpty()){
+					int selectedRow = consoleModel.getMinSelectionIndex();
+					System.out.println("Cliked row " + selectedRow);
+					JOptionPane.showMessageDialog(null, "Cliked row " + selectedRow);
+				}
+			}
+			
+		});
+		
+		 
 		
 		//For output of lexical analyzer (list of tokens)
 		listOfTokensTextArea = new JTextArea();

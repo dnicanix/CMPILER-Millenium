@@ -196,6 +196,18 @@ public class MilleniumBaseListener implements MilleniumListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAssignment_num_ope(@NotNull MilleniumParser.Assignment_num_opeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignment_num_ope(@NotNull MilleniumParser.Assignment_num_opeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhile_statement(@NotNull MilleniumParser.While_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -340,23 +352,7 @@ public class MilleniumBaseListener implements MilleniumListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-<<<<<<< HEAD
 	@Override public void enterString_expression(@NotNull MilleniumParser.String_expressionContext ctx) { }
-=======
-	@Override public void enterAssignment_num_ope(MilleniumParser.Assignment_num_opeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignment_num_ope(MilleniumParser.Assignment_num_opeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssignment_factor(MilleniumParser.Assignment_factorContext ctx) { }
->>>>>>> 5aa68307b1a38889bdc3332f56dbe1703d344b18
 	/**
 	 * {@inheritDoc}
 	 *

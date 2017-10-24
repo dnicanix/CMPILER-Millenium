@@ -158,6 +158,16 @@ public interface MilleniumListener extends ParseTreeListener {
 	 */
 	void exitNum_expression(@NotNull MilleniumParser.Num_expressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MilleniumParser#assignment_num_ope}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment_num_ope(@NotNull MilleniumParser.Assignment_num_opeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MilleniumParser#assignment_num_ope}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment_num_ope(@NotNull MilleniumParser.Assignment_num_opeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MilleniumParser#while_statement}.
 	 * @param ctx the parse tree
 	 */
@@ -268,21 +278,7 @@ public interface MilleniumListener extends ParseTreeListener {
 	 */
 	void exitAssignment_statement(@NotNull MilleniumParser.Assignment_statementContext ctx);
 	/**
-<<<<<<< HEAD
 	 * Enter a parse tree produced by {@link MilleniumParser#code_block}.
-=======
-	 * Enter a parse tree produced by {@link MilleniumParser#assignment_num_ope}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignment_num_ope(MilleniumParser.Assignment_num_opeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#assignment_num_ope}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignment_num_ope(MilleniumParser.Assignment_num_opeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#assignment_factor}.
->>>>>>> 5aa68307b1a38889bdc3332f56dbe1703d344b18
 	 * @param ctx the parse tree
 	 */
 	void enterCode_block(@NotNull MilleniumParser.Code_blockContext ctx);
