@@ -28,7 +28,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -51,21 +54,22 @@ import java.util.ArrayList;
 public class MilleniumView implements ActionListener{
 
 	private JFrame frame;
-	private JButton btnScan;
+	private JButton btnRun, btnPause, btnStop, btnSave, btnLoad;
 	private JTextPane srcCodeTextArea;
 	private JScrollPane srcCodeScrollPane, 
-						errorScrollPane, listOfTokensScrollPane, consoleScrollPane;
+						errorScrollPane, consoleScrollPane;
 	private JTabbedPane tabbedPane;
 	private JTable errorTable;
-	private JTextArea consoleTextArea, listOfTokensTextArea;
+	private JTextArea consoleTextArea;
+	private JComboBox<String> modeComboBox;
 	private int widthCodeScrollPane, heightCodeScrollPane, 
 				widthConsoleScrollPane, heightConsoleScrollPane,
 				yTabbedPane, widthTabbedPane, heightTabbedPane;
 	private ListSelectionModel consoleModel;
 	private TableModel model;
 	private TextLineNumber tln;
-	private LinePainter linePainter;
 	private PrintStream printStream;
+	private JPanel packageExplorerPanel, codeOutlinePanel;
 	
 	private String[] columnHeaders = {"Syntax Error", "Line Number", "Description"};
 	
@@ -139,10 +143,10 @@ public class MilleniumView implements ActionListener{
 	private void initialize() {
 		
 		Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
-		widthCodeScrollPane = (int)DimMax.getWidth() - 100;
-		heightCodeScrollPane = (int)DimMax.getHeight() - 500;
-		widthConsoleScrollPane = (int)DimMax.getWidth() - 100;
-		heightConsoleScrollPane = (int)DimMax.getHeight() - 500;
+		widthCodeScrollPane = (int)DimMax.getWidth() - 850;
+		heightCodeScrollPane = (int)DimMax.getHeight() - 475;
+		widthConsoleScrollPane = (int)DimMax.getWidth() - 850;
+		heightConsoleScrollPane = (int)DimMax.getHeight() - 475;
 		yTabbedPane = (int)DimMax.getHeight() - 350;
 		widthTabbedPane = (int)DimMax.getWidth() - 100;
 		heightTabbedPane = (int)DimMax.getHeight() - yTabbedPane - 70;
@@ -156,27 +160,76 @@ public class MilleniumView implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		btnScan = new JButton("Run");
-		btnScan.setBounds(50, 40, 100, 30);
-		btnScan.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnScan.setForeground(Color.BLACK);
-		btnScan.setBackground(SystemColor.control);
-		btnScan.addActionListener(this);
+		modeComboBox = new JComboBox<String>();
+		modeComboBox.setFont(new Font("Tahoma", Font.BOLD, 15));
+		modeComboBox.addItem("Run");
+		modeComboBox.addItem("Debug");
+		modeComboBox.setBounds(830, 30, 90, 30);
+		modeComboBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(modeComboBox.getSelectedItem().equals("Run")) {
+					btnPause.setEnabled(false);
+					btnStop.setEnabled(false);
+				} else if(modeComboBox.getSelectedItem().equals("Debug")) {
+					btnPause.setEnabled(true);
+					btnStop.setEnabled(true);
+				}
+			}
+		});
+		
+		ImageIcon imgRun = new ImageIcon("res/play-button.png");
+		btnRun = new JButton(imgRun);
+		btnRun.setBounds(930, 30, 30, 30);
+		btnRun.setBackground(SystemColor.control);
+		btnRun.addActionListener(this);
+		
+		ImageIcon imgPause = new ImageIcon("res/music-player-pause-lines.png");
+		btnPause = new JButton(imgPause);
+		btnPause.setBounds(965, 30, 30, 30);
+		btnPause.setEnabled(false);
+		btnPause.setBackground(SystemColor.control);
+		
+		ImageIcon imgStop = new ImageIcon("res/stop.png");
+		btnStop = new JButton(imgStop);
+		btnStop.setBounds(1000, 30, 30, 30);
+		btnStop.setEnabled(false);
+		btnStop.setBackground(SystemColor.control);
+		
+		btnSave = new JButton("Save");
+		btnSave.setBounds(50, 40, 80, 30);
+		btnSave.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnSave.setForeground(Color.BLACK);
+		btnSave.setBackground(SystemColor.control);
+		
+		btnLoad = new JButton("Load");
+		btnLoad.setBounds(140, 40, 80, 30);
+		btnLoad.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnLoad.setForeground(Color.BLACK);
+		btnLoad.setBackground(SystemColor.control);
 		
 		//Editor
 		srcCodeTextArea = new JTextPane(doc);
 		srcCodeTextArea.setFont(new Font("Monospaced", Font.PLAIN, 15));
-		Highlighter hilit = new DefaultHighlighter();
-		Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.yellow);
-		//srcCodeTextArea.setLineWrap(true);
-		
 		srcCodeScrollPane = new JScrollPane(srcCodeTextArea);
 		srcCodeScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		srcCodeScrollPane.setBounds(50, 100, widthCodeScrollPane, heightCodeScrollPane);
+		srcCodeScrollPane.setBounds(425, 100, widthCodeScrollPane, heightCodeScrollPane);
 		
 		tln = new TextLineNumber(srcCodeTextArea);
-		linePainter = new LinePainter(srcCodeTextArea);
+		new LinePainter(srcCodeTextArea);
 		srcCodeScrollPane.setRowHeaderView(tln);
+		
+		/*New layout for package explorer and code outline*/
+		packageExplorerPanel = new JPanel();
+		packageExplorerPanel.setBackground(SystemColor.control);
+		packageExplorerPanel.setBounds(50, 100, 360, heightCodeScrollPane);
+		packageExplorerPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
+		
+		codeOutlinePanel = new JPanel();
+		codeOutlinePanel.setBackground(SystemColor.control);
+		codeOutlinePanel.setBounds(1510, 100, 360, heightCodeScrollPane);
+		codeOutlinePanel.setBorder(BorderFactory.createLineBorder(Color.gray));
 		
 		//Contains console and list of tokens text areas
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -243,22 +296,16 @@ public class MilleniumView implements ActionListener{
 			
 		});
 		
-		 
-		
-		//For output of lexical analyzer (list of tokens)
-		listOfTokensTextArea = new JTextArea();
-		listOfTokensTextArea.setEditable(false);
-		listOfTokensTextArea.setBackground(SystemColor.control);
-		listOfTokensTextArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			
-		listOfTokensScrollPane = new JScrollPane(listOfTokensTextArea);
-		listOfTokensScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		listOfTokensScrollPane.setBounds(50, 100, 1250, 400);
-		tabbedPane.addTab("List of Tokens", null, listOfTokensScrollPane);
-		
 		frame.getContentPane().add(srcCodeScrollPane);
-		frame.getContentPane().add(btnScan);
+		frame.getContentPane().add(modeComboBox);
+		frame.getContentPane().add(btnRun);
+		frame.getContentPane().add(btnSave);
+		frame.getContentPane().add(btnPause);
+		frame.getContentPane().add(btnStop);
+		frame.getContentPane().add(btnLoad);
 		frame.getContentPane().add(tabbedPane);
+		frame.getContentPane().add(packageExplorerPanel);
+		frame.getContentPane().add(codeOutlinePanel);
 		
 		frame.setVisible(true);
 		
@@ -291,7 +338,7 @@ public class MilleniumView implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == btnScan){
+		if(e.getSource() == btnRun){
 			consoleTextArea.setText("");
 			
 			model = new DefaultTableModel(null, columnHeaders)
@@ -305,7 +352,6 @@ public class MilleniumView implements ActionListener{
 			
 			errorTable.setModel(model);
 			String tokens = milleniumController.getLexerTokens(srcCodeTextArea.getText());
-			listOfTokensTextArea.setText(tokens);
 			tln.resetLineErrors();
 			milleniumController.parse();
 		}
