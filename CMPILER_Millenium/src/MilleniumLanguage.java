@@ -28,7 +28,7 @@ public class MilleniumLanguage {
 		
 		ANTLRInputStream input = new ANTLRInputStream( src);
 		lexer = new MilleniumLexer(input);
-		/* PRINTING TOKENS
+		/*** PRINTING TOKENS
 		lexer.removeErrorListeners();
 		lexer.addErrorListener(new MilleniumLexerErrorListener());
 		
@@ -44,7 +44,7 @@ public class MilleniumLanguage {
 	    }
 	    
 	    return valuesAndTokens;
-	    */
+	    ***/
 		return "";
 	}
 	

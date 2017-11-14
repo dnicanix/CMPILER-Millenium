@@ -67,6 +67,8 @@ public class MilleniumView implements ActionListener{
 	private LinePainter linePainter;
 	private PrintStream printStream;
 	
+	private String[] columnHeaders = {"Syntax Error", "Line Number", "Description"};
+	
 
 	private MilleniumController milleniumController;
 	
@@ -195,8 +197,6 @@ public class MilleniumView implements ActionListener{
 		consoleScrollPane.setBounds(50, 100, 1250, 400);
 		tabbedPane.addTab("Console", null, consoleScrollPane);
 		
-		String[] columnHeaders = {"Syntax Error", "Line Number", "Description"};
-		
 		model = new DefaultTableModel(null, columnHeaders)
 		  {
 		    public boolean isCellEditable(int row, int column)
@@ -293,6 +293,17 @@ public class MilleniumView implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnScan){
 			consoleTextArea.setText("");
+			
+			model = new DefaultTableModel(null, columnHeaders)
+			  {
+			    public boolean isCellEditable(int row, int column)
+			    {
+			      return false;//This causes all cells to be not editable
+			    }
+			  };
+			
+			
+			errorTable.setModel(model);
 			String tokens = milleniumController.getLexerTokens(srcCodeTextArea.getText());
 			listOfTokensTextArea.setText(tokens);
 			tln.resetLineErrors();
@@ -310,6 +321,7 @@ public class MilleniumView implements ActionListener{
 		((DefaultTableModel) model).addRow(new Object[] {errorType, errorLine, errorMsg});
 		highlightError(Integer.parseInt(errorLine.split(":")[0]));
 	}
+
 	
 	
 }

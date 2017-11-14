@@ -480,7 +480,8 @@ public class TextLineNumber extends JPanel
 	}
 	
 	public void resetLineErrors(){
-		lineErrors.clear();
+		lineErrors.clear();;
+		
 	}
 
 }

@@ -73,12 +73,12 @@ public class MilleniumParserErrorListener implements ANTLRErrorListener{
 			errorMsg = "No viable alternative! Fix the input" + offendingToken + ".";
 			
 		}else if(msg.contains("token recognition")){
-			/*
+			
 			System.err.println
 			("[SYNTAX ERROR]: Unrecognized token! " +
 					"Delete " + offendingToken + ". " + 
 					 "(line " + line + ":" + charPositionInLine + ")");
-			*/
+			
 			errorMsg = "Unrecognized token! Delete " + offendingToken + ".";
 		}
 		else if(msg.contains("extraneous input")){
@@ -96,7 +96,7 @@ public class MilleniumParserErrorListener implements ANTLRErrorListener{
 					"Try adding " + offendingToken + ". " + 
 					 "(line " + line + ":" + charPositionInLine + ")");
 			
-			errorMsg = "Missing token! Try adding " + offendingToken + ".";
+			errorMsg = "Missing token! Try adding a token before " + offendingToken + ".";
 		}else{
 			System.err.println("[SYNTAX ERROR]: " + msg + " (line " + line + ":" + charPositionInLine + ")");
 		}

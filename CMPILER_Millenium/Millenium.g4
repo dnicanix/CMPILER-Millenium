@@ -9,6 +9,7 @@ grammar Millenium;
 
 
 program						: function_declaration* main_function EOF;
+
 // Main Statements
 statement					
 	: vardecl_list 
@@ -172,7 +173,18 @@ assignment_factor
 	| BOOLEAN_LITERAL
 	;
 funccall_statement       	
-	: FUNCTION_CALL FUNCTION_IDENTIFIER OPEN_PAR (actual_parameter_list)? CLOSE_PAR;
+	: FUNCTION_CALL FUNCTION_IDENTIFIER OPEN_PAR (actual_parameter_list)? CLOSE_PAR
+	 
+//	| FUNCTION_CALL FUNCTION_IDENTIFIER OPEN_PAR (actual_parameter_list)? CLOSE_PAR (CLOSE_PAR)+
+//		{notifyErrorListeners ("Uneven Parenthesis. Remove extra ')'. ");}
+//	
+//	| FUNCTION_CALL FUNCTION_IDENTIFIER OPEN_PAR (OPEN_PAR)+ (actual_parameter_list)? CLOSE_PAR
+//		{notifyErrorListeners ("Uneven Parenthesis. Remove extra '('. ");}			
+//	| FUNCTION_CALL FUNCTION_IDENTIFIER (actual_parameter_list)? CLOSE_PAR
+//	{notifyErrorListeners ("Missing parenthesis. Try adding '('. ");}
+	
+	
+	;
 actual_parameter_list    	
 	: actual_params;
 actual_params	         	

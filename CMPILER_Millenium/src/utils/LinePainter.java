@@ -2,6 +2,7 @@ package utils;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -12,13 +13,15 @@ import javax.swing.text.*;
  *  current caret position.
  */
 public class LinePainter
-	implements Highlighter.HighlightPainter, CaretListener, MouseListener, MouseMotionListener
+	implements Highlighter.HighlightPainter
 {
 	private JTextComponent component;
 
 	private Color color;
 
 	private Rectangle lastView;
+	
+	private ArrayList<Integer> lineErrors = new ArrayList<Integer>();
 
 	/*
 	 *  The line color will be calculated automatically by attempting
@@ -44,10 +47,11 @@ public class LinePainter
 		setColor( color );
 
 		//  Add listeners so we know when to change highlighting
-
+		/*
 		component.addCaretListener( this );
 		component.addMouseListener( this );
 		component.addMouseMotionListener( this );
+		*/
 
 		//  Turn highlighting on by adding a dummy highlight
 
@@ -91,13 +95,15 @@ public class LinePainter
 	{
 		try
 		{
+			
+		
 			Rectangle r = c.modelToView(c.getCaretPosition());
 			g.setColor( color );
 			g.fillRect(0, r.y, c.getWidth(), r.height);
-			
-
+		
 			if (lastView == null)
 				lastView = r;
+			
 		}
 		catch(BadLocationException ble) {System.out.println(ble);}
 	}
@@ -133,31 +139,35 @@ public class LinePainter
 	}
 
 	//  Implement CaretListener
-
+	/*
 	public void caretUpdate(CaretEvent e)
 	{
 		resetHighlight();
 	}
-
+*/
 	//  Implement MouseListener
-
+	/*
 	public void mousePressed(MouseEvent e)
 	{
 		resetHighlight();
 	}
-
+	*/
 	public void mouseClicked(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 
 	//  Implement MouseMotionListener
-
+	/*
 	public void mouseDragged(MouseEvent e)
 	{
 		resetHighlight();
 	}
-
+	*/
 	public void mouseMoved(MouseEvent e) {}
+	
+	public void addLineErrors(int line){
+		lineErrors.add(line);
+	}
 	
 }

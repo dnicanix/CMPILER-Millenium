@@ -32,7 +32,7 @@ public class MilleniumRunner
 	
 	ANTLRInputStream input = new ANTLRInputStream( src);
 	MilleniumLexer lexer = new MilleniumLexer(input);
-    while(true) {
+    while(true) {	
       Token token = lexer.nextToken();
       if(token.getType() == MilleniumLexer.EOF) {
         break;
