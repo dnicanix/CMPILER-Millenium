@@ -20,6 +20,12 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Highlighter;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.BasicCompletion;
+import org.fife.ui.autocomplete.CompletionProvider;
+import org.fife.ui.autocomplete.DefaultCompletionProvider;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
@@ -215,10 +221,15 @@ public class MilleniumView implements ActionListener{
 		srcCodeScrollPane = new JScrollPane(srcCodeTextArea);
 		srcCodeScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		srcCodeScrollPane.setBounds(425, 100, widthCodeScrollPane, heightCodeScrollPane);
+	
 		
 		tln = new TextLineNumber(srcCodeTextArea);
 		new LinePainter(srcCodeTextArea);
 		srcCodeScrollPane.setRowHeaderView(tln);
+		
+		CompletionProvider provider = createCompletionProvider();
+		AutoCompletion ac = new AutoCompletion(provider);
+		ac.install(srcCodeTextArea);
 		
 		/*New layout for package explorer and code outline*/
 		packageExplorerPanel = new JPanel();
@@ -368,6 +379,17 @@ public class MilleniumView implements ActionListener{
 		highlightError(Integer.parseInt(errorLine.split(":")[0]));
 	}
 
-	
+	private CompletionProvider createCompletionProvider() {
+		DefaultCompletionProvider provider = new DefaultCompletionProvider();
+		
+		provider.addCompletion(new BasicCompletion(provider, "walangibabalik"));
+		provider.addCompletion(new BasicCompletion(provider, "LEZGO"));
+		provider.addCompletion(new BasicCompletion(provider, "willingtowait"));
+		provider.addCompletion(new BasicCompletion(provider, "priority"));
+		provider.addCompletion(new BasicCompletion(provider, "digitz"));
+		provider.addCompletion(new BasicCompletion(provider, "lutang"));
+		
+		return provider;
+	}
 	
 }
