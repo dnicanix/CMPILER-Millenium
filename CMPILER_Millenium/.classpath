@@ -7,7 +7,13 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/Danica C. Sevilla/Downloads/~School Essentials/ANTLR/antlr-4.7-complete.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Danica C. Sevilla/Downloads/~School Essentials/reflections-0.9.8.jar"/>
+=======
+	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/antlr-4.7-complete.jar"/>
+	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/autocomplete.jar"/>
+	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/rsyntaxtextarea.jar"/>
+>>>>>>> origin/master
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
