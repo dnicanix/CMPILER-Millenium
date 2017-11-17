@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 
 
@@ -9,12 +7,14 @@ public class MilleniumController {
 	public MilleniumController(MilleniumLanguage milleniumLang){
 		this.milleniumLang = milleniumLang;
 	}
+
 	public String getLexerTokens(String src){	
 		return milleniumLang.tokenize(src);
 	}
 	
 	public void parse(){
 		milleniumLang.parse();
+		
 	}
 	
 }

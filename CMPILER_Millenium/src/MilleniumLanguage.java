@@ -1,4 +1,6 @@
 
+
+
 import java.util.ArrayList;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -14,12 +16,15 @@ public class MilleniumLanguage {
 	
 	MilleniumLexer lexer;
 	MilleniumParser parser;
+	MilleniumBaseImplementor implementor;
 	
-	public MilleniumLanguage(){
+	public MilleniumLanguage() throws ClassNotFoundException{
 		valuesAndTokens = new ArrayList<String>();
 		milleniumController = new MilleniumController(this);
 		milleniumView = new MilleniumView(milleniumController);
+		implementor = new MilleniumBaseImplementor(milleniumView);
 	}
+	
 
 	// 1.) TOKENIZE
 	public String tokenize(String src){
@@ -28,8 +33,8 @@ public class MilleniumLanguage {
 		
 		ANTLRInputStream input = new ANTLRInputStream( src);
 		lexer = new MilleniumLexer(input);
-		/*** PRINTING TOKENS
 		lexer.removeErrorListeners();
+		/*** PRINTING TOKENS
 		lexer.addErrorListener(new MilleniumLexerErrorListener());
 		
 	    while(true) {
@@ -61,11 +66,15 @@ public class MilleniumLanguage {
 	    //parser.getInterpreter() .setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION); // Report all ambiguities	    
 	    parser.setBuildParseTree(true);
 	    ParseTree tree = parser.program(); // begin parsing at rule 'start'
+	    
 	    /***
 	    MilleniumParserListener mill = new MilleniumParserListener();
 	    ParseTreeWalker walker = new ParseTreeWalker();
 	    walker.walk(mill, tree);
 	     ***/
+	    
+	    implementor = new MilleniumBaseImplementor(milleniumView);
+	    implementor.visit(tree);
 	    System.out.println(tree.toStringTree(parser)); // print LISP-style tree
 	}
 	

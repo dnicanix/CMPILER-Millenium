@@ -35,10 +35,10 @@ vardecl_list
 	: var_decl END (vardecl_list)?
 	;
 var_decl					
-	: data_type (array_size)? (var_identifier_list);
+	: data_type (array_size)? (var_identifier_list) #VariableDeclaration;
 var_identifier_list			
-	: VARIABLE_IDENTIFIER var_assignment_statement? ENUMERATION (var_identifier_list)?
-	| VARIABLE_IDENTIFIER var_assignment_statement?
+	: VARIABLE_IDENTIFIER var_assignment_statement? ENUMERATION (var_identifier_list)? #VarIdentifierInDeclaration1
+	| VARIABLE_IDENTIFIER var_assignment_statement? #VarIdentifierInDeclaration2
 	;
 array_size					
 	: ARRAY_SIZE_DELIMETER INTEGER_LITERAL;
@@ -69,7 +69,7 @@ main_function
 // Expression
 expression					
 	: string_expression 
-	| string_expression ADDITION_OPE expression
+	| string_expression ADDITION_OPE expression 
 	| var_func_expression
 	| num_expression num_ope num_expression
 	| bool_expression
@@ -151,13 +151,13 @@ logical_ope
 													
 // Statements
 const_statement				
-	: CONSTANT_KEYWORD VARIABLE_IDENTIFIER var_assignment_statement ;							
+	: CONSTANT_KEYWORD data_type VARIABLE_IDENTIFIER var_assignment_statement? #ConstantDeclaration;							
 var_assignment_statement	
-	: ASSINGMENT_OPE assignment_factor;
+	: ASSINGMENT_OPE assignment_factor #VarAssignment; 
 assignment_statement		
-	: VARIABLE_IDENTIFIER ASSINGMENT_OPE assignment_factor
-	| VARIABLE_IDENTIFIER (INCREMENT_OPE | DECREMENT_OPE)
-	| VARIABLE_IDENTIFIER assignment_num_ope (expression | num_factor | STRING_LITERAL)
+	: VARIABLE_IDENTIFIER ASSINGMENT_OPE assignment_factor #NewAssignment
+	| VARIABLE_IDENTIFIER (INCREMENT_OPE | DECREMENT_OPE)  #DecrementOrIncrement
+	| VARIABLE_IDENTIFIER assignment_num_ope (expression | num_factor | STRING_LITERAL) #AssignmentWithOpe
 	;
 assignment_num_ope
 	: ADDITION_ASSIGNMENT_OPE
@@ -231,10 +231,10 @@ return_statement
 	| RETURN data_type {notifyErrorListeners("Invalid return type! Replace with a data type value or expression.");} 
 	;
 scan_statement				
-	: SCAN OPEN_PAR VARIABLE_IDENTIFIER CLOSE_PAR;
+	: SCAN OPEN_PAR VARIABLE_IDENTIFIER CLOSE_PAR #Scan; 
 print_statement				
-	: PRINT OPEN_PAR expression CLOSE_PAR
-	| PRINT_NL OPEN_PAR expression CLOSE_PAR
+	: PRINT OPEN_PAR expression CLOSE_PAR #Print
+	| PRINT_NL OPEN_PAR expression CLOSE_PAR #PrintNewLine
 	;
 
 
@@ -308,7 +308,7 @@ VOID						: 'walangibabalik';
 //INTEGER_LITERAL				: ('+' | '-')? DIGIT;
 //DIGIT						: [0-9]+;
 INTEGER_LITERAL				: [0-9]+;
-FLOAT_LITERAL				: INTEGER_LITERAL? '.' [0-9]+;
+FLOAT_LITERAL				: INTEGER_LITERAL? '.' [0-9]+ 'f'?;
 CHAR_LITERAL				: '\'' . '\'';
 STRING_LITERAL				: '"' .*? '"';
 BOOLEAN_LITERAL				: 'yas' | 'deins' ; 

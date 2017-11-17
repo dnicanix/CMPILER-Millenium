@@ -51,25 +51,37 @@ public class MilleniumBaseListener implements MilleniumListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_decl(MilleniumParser.Var_declContext ctx) { }
+	@Override public void enterVariableDeclaration(MilleniumParser.VariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_decl(MilleniumParser.Var_declContext ctx) { }
+	@Override public void exitVariableDeclaration(MilleniumParser.VariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx) { }
+	@Override public void enterVarIdentifierInDeclaration1(MilleniumParser.VarIdentifierInDeclaration1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx) { }
+	@Override public void exitVarIdentifierInDeclaration1(MilleniumParser.VarIdentifierInDeclaration1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarIdentifierInDeclaration2(MilleniumParser.VarIdentifierInDeclaration2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarIdentifierInDeclaration2(MilleniumParser.VarIdentifierInDeclaration2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -303,37 +315,61 @@ public class MilleniumBaseListener implements MilleniumListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConst_statement(MilleniumParser.Const_statementContext ctx) { }
+	@Override public void enterConstantDeclaration(MilleniumParser.ConstantDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConst_statement(MilleniumParser.Const_statementContext ctx) { }
+	@Override public void exitConstantDeclaration(MilleniumParser.ConstantDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx) { }
+	@Override public void enterVarAssignment(MilleniumParser.VarAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx) { }
+	@Override public void exitVarAssignment(MilleniumParser.VarAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment_statement(MilleniumParser.Assignment_statementContext ctx) { }
+	@Override public void enterNewAssignment(MilleniumParser.NewAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment_statement(MilleniumParser.Assignment_statementContext ctx) { }
+	@Override public void exitNewAssignment(MilleniumParser.NewAssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDecrementOrIncrement(MilleniumParser.DecrementOrIncrementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDecrementOrIncrement(MilleniumParser.DecrementOrIncrementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignmentWithOpe(MilleniumParser.AssignmentWithOpeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignmentWithOpe(MilleniumParser.AssignmentWithOpeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -507,25 +543,37 @@ public class MilleniumBaseListener implements MilleniumListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScan_statement(MilleniumParser.Scan_statementContext ctx) { }
+	@Override public void enterScan(MilleniumParser.ScanContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScan_statement(MilleniumParser.Scan_statementContext ctx) { }
+	@Override public void exitScan(MilleniumParser.ScanContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrint_statement(MilleniumParser.Print_statementContext ctx) { }
+	@Override public void enterPrint(MilleniumParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrint_statement(MilleniumParser.Print_statementContext ctx) { }
+	@Override public void exitPrint(MilleniumParser.PrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrintNewLine(MilleniumParser.PrintNewLineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrintNewLine(MilleniumParser.PrintNewLineContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

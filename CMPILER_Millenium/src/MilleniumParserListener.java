@@ -1,4 +1,7 @@
 
+
+
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -53,38 +56,6 @@ public class MilleniumParserListener extends MilleniumBaseListener {
 	 */
 	@Override public void exitVardecl_list(MilleniumParser.Vardecl_listContext ctx) { 
 		System.out.println("exitVardecl_list");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVar_decl(MilleniumParser.Var_declContext ctx) {
-		System.out.println("enterVar_decl");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVar_decl(MilleniumParser.Var_declContext ctx) {
-		System.out.println("exitVar_decl");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx) {
-		System.out.println("enterVar_identifier_list");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx) { 
-		System.out.println("exitVar_identifier_list");
 	}
 	/**
 	 * {@inheritDoc}
@@ -394,54 +365,6 @@ public class MilleniumParserListener extends MilleniumBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConst_statement(MilleniumParser.Const_statementContext ctx) {
-		System.out.println("enterConst_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConst_statement(MilleniumParser.Const_statementContext ctx) { 
-		System.out.println("exitConst_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx) { 
-		System.out.println("enterVar_assignment_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx) {
-		System.out.println("exitVar_assignment_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssignment_statement(MilleniumParser.Assignment_statementContext ctx) {
-		System.out.println("enterAssignment_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignment_statement(MilleniumParser.Assignment_statementContext ctx) {
-		System.out.println("exitAssignment_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAssignment_factor(MilleniumParser.Assignment_factorContext ctx) {
 		System.out.println("enterAssignment_factor");
 	}
@@ -629,39 +552,6 @@ public class MilleniumParserListener extends MilleniumBaseListener {
 	@Override public void exitReturn_statement(MilleniumParser.Return_statementContext ctx) {
 		System.out.println("exitReturn_statement");
 	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterScan_statement(MilleniumParser.Scan_statementContext ctx) {
-		System.out.println("enterScan_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitScan_statement(MilleniumParser.Scan_statementContext ctx) { 
-		System.out.println("exitScan_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPrint_statement(MilleniumParser.Print_statementContext ctx) { 
-		System.out.println("enterPrint_statement");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrint_statement(MilleniumParser.Print_statementContext ctx) {
-		System.out.println("exitPrint_statement");
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

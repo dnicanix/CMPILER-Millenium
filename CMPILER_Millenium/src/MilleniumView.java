@@ -2,6 +2,10 @@
 
 
 
+
+
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -41,9 +45,11 @@ import javax.swing.ListSelectionModel;
 import utils.CustomOutputStream;
 import utils.LinePainter;
 import utils.TextLineNumber;
+
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -66,6 +72,7 @@ public class MilleniumView implements ActionListener{
 	private TextLineNumber tln;
 	private LinePainter linePainter;
 	private PrintStream printStream;
+	private InputStream inputStream;
 	
 	private String[] columnHeaders = {"Syntax Error", "Line Number", "Description"};
 	
@@ -292,6 +299,7 @@ public class MilleniumView implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnScan){
+			
 			consoleTextArea.setText("");
 			
 			model = new DefaultTableModel(null, columnHeaders)
@@ -308,6 +316,7 @@ public class MilleniumView implements ActionListener{
 			listOfTokensTextArea.setText(tokens);
 			tln.resetLineErrors();
 			milleniumController.parse();
+			
 		}
 	}
 	
@@ -321,7 +330,11 @@ public class MilleniumView implements ActionListener{
 		((DefaultTableModel) model).addRow(new Object[] {errorType, errorLine, errorMsg});
 		highlightError(Integer.parseInt(errorLine.split(":")[0]));
 	}
-
+	
+	public void addSemanticErrorMessages(String errorType, String errorLine, String errorMsg){
+		((DefaultTableModel) model).addRow(new Object[] {errorType, errorLine, errorMsg});
+		highlightError(Integer.parseInt(errorLine));
+	}
 	
 	
 }

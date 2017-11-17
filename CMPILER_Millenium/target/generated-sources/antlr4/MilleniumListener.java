@@ -37,25 +37,41 @@ public interface MilleniumListener extends ParseTreeListener {
 	 */
 	void exitVardecl_list(MilleniumParser.Vardecl_listContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#var_decl}.
+	 * Enter a parse tree produced by the {@code VariableDeclaration}
+	 * labeled alternative in {@link MilleniumParser#var_decl}.
 	 * @param ctx the parse tree
 	 */
-	void enterVar_decl(MilleniumParser.Var_declContext ctx);
+	void enterVariableDeclaration(MilleniumParser.VariableDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#var_decl}.
+	 * Exit a parse tree produced by the {@code VariableDeclaration}
+	 * labeled alternative in {@link MilleniumParser#var_decl}.
 	 * @param ctx the parse tree
 	 */
-	void exitVar_decl(MilleniumParser.Var_declContext ctx);
+	void exitVariableDeclaration(MilleniumParser.VariableDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#var_identifier_list}.
+	 * Enter a parse tree produced by the {@code VarIdentifierInDeclaration1}
+	 * labeled alternative in {@link MilleniumParser#var_identifier_list}.
 	 * @param ctx the parse tree
 	 */
-	void enterVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx);
+	void enterVarIdentifierInDeclaration1(MilleniumParser.VarIdentifierInDeclaration1Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#var_identifier_list}.
+	 * Exit a parse tree produced by the {@code VarIdentifierInDeclaration1}
+	 * labeled alternative in {@link MilleniumParser#var_identifier_list}.
 	 * @param ctx the parse tree
 	 */
-	void exitVar_identifier_list(MilleniumParser.Var_identifier_listContext ctx);
+	void exitVarIdentifierInDeclaration1(MilleniumParser.VarIdentifierInDeclaration1Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code VarIdentifierInDeclaration2}
+	 * labeled alternative in {@link MilleniumParser#var_identifier_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarIdentifierInDeclaration2(MilleniumParser.VarIdentifierInDeclaration2Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VarIdentifierInDeclaration2}
+	 * labeled alternative in {@link MilleniumParser#var_identifier_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarIdentifierInDeclaration2(MilleniumParser.VarIdentifierInDeclaration2Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link MilleniumParser#array_size}.
 	 * @param ctx the parse tree
@@ -247,35 +263,65 @@ public interface MilleniumListener extends ParseTreeListener {
 	 */
 	void exitLogical_ope(MilleniumParser.Logical_opeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#const_statement}.
+	 * Enter a parse tree produced by the {@code ConstantDeclaration}
+	 * labeled alternative in {@link MilleniumParser#const_statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterConst_statement(MilleniumParser.Const_statementContext ctx);
+	void enterConstantDeclaration(MilleniumParser.ConstantDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#const_statement}.
+	 * Exit a parse tree produced by the {@code ConstantDeclaration}
+	 * labeled alternative in {@link MilleniumParser#const_statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitConst_statement(MilleniumParser.Const_statementContext ctx);
+	void exitConstantDeclaration(MilleniumParser.ConstantDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#var_assignment_statement}.
+	 * Enter a parse tree produced by the {@code VarAssignment}
+	 * labeled alternative in {@link MilleniumParser#var_assignment_statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx);
+	void enterVarAssignment(MilleniumParser.VarAssignmentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#var_assignment_statement}.
+	 * Exit a parse tree produced by the {@code VarAssignment}
+	 * labeled alternative in {@link MilleniumParser#var_assignment_statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitVar_assignment_statement(MilleniumParser.Var_assignment_statementContext ctx);
+	void exitVarAssignment(MilleniumParser.VarAssignmentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#assignment_statement}.
+	 * Enter a parse tree produced by the {@code NewAssignment}
+	 * labeled alternative in {@link MilleniumParser#assignment_statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignment_statement(MilleniumParser.Assignment_statementContext ctx);
+	void enterNewAssignment(MilleniumParser.NewAssignmentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#assignment_statement}.
+	 * Exit a parse tree produced by the {@code NewAssignment}
+	 * labeled alternative in {@link MilleniumParser#assignment_statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignment_statement(MilleniumParser.Assignment_statementContext ctx);
+	void exitNewAssignment(MilleniumParser.NewAssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DecrementOrIncrement}
+	 * labeled alternative in {@link MilleniumParser#assignment_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterDecrementOrIncrement(MilleniumParser.DecrementOrIncrementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DecrementOrIncrement}
+	 * labeled alternative in {@link MilleniumParser#assignment_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitDecrementOrIncrement(MilleniumParser.DecrementOrIncrementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssignmentWithOpe}
+	 * labeled alternative in {@link MilleniumParser#assignment_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignmentWithOpe(MilleniumParser.AssignmentWithOpeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssignmentWithOpe}
+	 * labeled alternative in {@link MilleniumParser#assignment_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignmentWithOpe(MilleniumParser.AssignmentWithOpeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MilleniumParser#assignment_num_ope}.
 	 * @param ctx the parse tree
@@ -417,23 +463,39 @@ public interface MilleniumListener extends ParseTreeListener {
 	 */
 	void exitReturn_statement(MilleniumParser.Return_statementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#scan_statement}.
+	 * Enter a parse tree produced by the {@code Scan}
+	 * labeled alternative in {@link MilleniumParser#scan_statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterScan_statement(MilleniumParser.Scan_statementContext ctx);
+	void enterScan(MilleniumParser.ScanContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#scan_statement}.
+	 * Exit a parse tree produced by the {@code Scan}
+	 * labeled alternative in {@link MilleniumParser#scan_statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitScan_statement(MilleniumParser.Scan_statementContext ctx);
+	void exitScan(MilleniumParser.ScanContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MilleniumParser#print_statement}.
+	 * Enter a parse tree produced by the {@code Print}
+	 * labeled alternative in {@link MilleniumParser#print_statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrint_statement(MilleniumParser.Print_statementContext ctx);
+	void enterPrint(MilleniumParser.PrintContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MilleniumParser#print_statement}.
+	 * Exit a parse tree produced by the {@code Print}
+	 * labeled alternative in {@link MilleniumParser#print_statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrint_statement(MilleniumParser.Print_statementContext ctx);
+	void exitPrint(MilleniumParser.PrintContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PrintNewLine}
+	 * labeled alternative in {@link MilleniumParser#print_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintNewLine(MilleniumParser.PrintNewLineContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PrintNewLine}
+	 * labeled alternative in {@link MilleniumParser#print_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintNewLine(MilleniumParser.PrintNewLineContext ctx);
 }

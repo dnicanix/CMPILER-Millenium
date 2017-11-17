@@ -8,5 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Danica C. Sevilla/Downloads/~School Essentials/ANTLR/antlr-4.7-complete.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Danica C. Sevilla/Downloads/~School Essentials/reflections-0.9.8.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
