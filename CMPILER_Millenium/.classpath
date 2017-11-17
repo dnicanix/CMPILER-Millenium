@@ -9,5 +9,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/antlr-4.7-complete.jar"/>
 	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/autocomplete.jar"/>
+	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/rsyntaxtextarea.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
