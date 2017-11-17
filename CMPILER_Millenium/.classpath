@@ -13,7 +13,10 @@
 =======
 	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/antlr-4.7-complete.jar"/>
 	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/autocomplete.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="D:/Term 1, AY 17-18/CMPILER/rsyntaxtextarea.jar"/>
 >>>>>>> origin/master
+=======
+>>>>>>> parent of e5aa532... Error highlights whole line; changed text area type; added temporary table
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
