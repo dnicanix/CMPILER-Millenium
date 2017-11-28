@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.v4.runtime.*;
@@ -8,19 +9,28 @@ import org.antlr.v4.runtime.tree.*;
 
 public class MilleniumLanguage {
 	
-	MilleniumController milleniumController;
-	MilleniumView milleniumView;
-	ArrayList<String> valuesAndTokens;
+	private MilleniumController milleniumController;
+	private MilleniumView milleniumView;
+	private ArrayList<String> valuesAndTokens;
 	
-	MilleniumLexer lexer;
-	MilleniumParser parser;
 	
-	public MilleniumLanguage(){
+	private MilleniumLexer lexer;
+	private MilleniumParser parser;
+	private MilleniumInterpreter interpreter;
+	private FirstPassImplementor firstPass;
+	
+
+	//MilleniumBaseImplementor implementor;
+	
+	
+	public MilleniumLanguage() throws ClassNotFoundException{
 		valuesAndTokens = new ArrayList<String>();
 		milleniumController = new MilleniumController(this);
 		milleniumView = new MilleniumView(milleniumController);
+		//interpreter = new MilleniumInterpreter(milleniumView);
+		//implementor = new MilleniumBaseImplementor(milleniumView);
 	}
-
+	
 	// 1.) TOKENIZE
 	public String tokenize(String src){
 		
@@ -57,16 +67,23 @@ public class MilleniumLanguage {
 	    parser = new MilleniumParser(tokens);    
 	    parser.removeErrorListeners();
 	    parser.addErrorListener(new MilleniumParserErrorListener(milleniumView));
-	    //parser.addErrorListener(new DiagnosticErrorListener());
-	    //parser.getInterpreter() .setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION); // Report all ambiguities	    
 	    parser.setBuildParseTree(true);
 	    ParseTree tree = parser.program(); // begin parsing at rule 'start'
+	    
+	    interpreter = new MilleniumInterpreter(milleniumView);
+	    FirstPassImplementor firstPass = new FirstPassImplementor(interpreter);
+	    firstPass.visit(tree);
+	    System.out.println("ERROR UPDATE: " + interpreter.isHasError());
+	    
 	    /***
 	    MilleniumParserListener mill = new MilleniumParserListener();
 	    ParseTreeWalker walker = new ParseTreeWalker();
 	    walker.walk(mill, tree);
 	     ***/
-	    System.out.println(tree.toStringTree(parser)); // print LISP-style tree
+	    
+	    // implementor = new MilleniumBaseImplementor(milleniumView);
+	    //implementor.visit(tree);
+	    //System.out.println(tree.toStringTree(parser)); // print LISP-style tree
 	}
 	
 	

@@ -36,18 +36,28 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import utils.CustomInputStream;
 import utils.CustomOutputStream;
 import utils.TextLineNumber;
+
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 
 
@@ -71,6 +81,8 @@ public class MilleniumView implements ActionListener{
 	private TableModel model;
 	//private TextLineNumber tln;
 	private PrintStream printStream;
+	PipedInputStream inPipe;
+	PrintWriter inWriter;
 	private JPanel packageExplorerPanel, debugPanel;
 	
 	private String[] columnHeaders = {"Syntax Error", "Line Number", "Description"};
@@ -166,7 +178,7 @@ public class MilleniumView implements ActionListener{
 		modeComboBox.setFont(new Font("Tahoma", Font.BOLD, 15));
 		modeComboBox.addItem("Run");
 		modeComboBox.addItem("Debug");
-		modeComboBox.setBounds(830, 30, 90, 30);
+		modeComboBox.setBounds(630, 30, 90, 30);
 		modeComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -183,19 +195,19 @@ public class MilleniumView implements ActionListener{
 		
 		ImageIcon imgRun = new ImageIcon("res/play-button.png");
 		btnRun = new JButton(imgRun);
-		btnRun.setBounds(930, 30, 30, 30);
+		btnRun.setBounds(730, 30, 30, 30);
 		btnRun.setBackground(SystemColor.control);
 		btnRun.addActionListener(this);
 		
 		ImageIcon imgPause = new ImageIcon("res/music-player-pause-lines.png");
 		btnPause = new JButton(imgPause);
-		btnPause.setBounds(965, 30, 30, 30);
+		btnPause.setBounds(765, 30, 30, 30);
 		btnPause.setEnabled(false);
 		btnPause.setBackground(SystemColor.control);
 		
 		ImageIcon imgStop = new ImageIcon("res/stop.png");
 		btnStop = new JButton(imgStop);
-		btnStop.setBounds(1000, 30, 30, 30);
+		btnStop.setBounds(800, 30, 30, 30);
 		btnStop.setEnabled(false);
 		btnStop.setBackground(SystemColor.control);
 		
@@ -219,6 +231,7 @@ public class MilleniumView implements ActionListener{
 		srcCodeTextArea.setSyntaxEditingStyle("text/myLanguage"); 
 		srcCodeTextArea.setAutoIndentEnabled(true);
 		srcCodeTextArea.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		//srcCodeTextArea.setBracketMatchingEnabled(true);
 		contentPane.setBounds(425, 100, widthCodeScrollPane, heightCodeScrollPane);
 		contentPane.add(new RTextScrollPane (srcCodeTextArea));
 		
@@ -234,7 +247,7 @@ public class MilleniumView implements ActionListener{
 		
 		debugPanel = new JPanel();
 		debugPanel.setBackground(SystemColor.control);
-		debugPanel.setBounds(1510, 100, 360, heightCodeScrollPane);
+		debugPanel.setBounds(955, 100, 360, heightCodeScrollPane);
 		debugPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
 		
 		//Contains console and list of tokens text areas
@@ -245,12 +258,13 @@ public class MilleniumView implements ActionListener{
 		
 		//For syntax and semantic errors
 		consoleTextArea = new JTextArea();
-		consoleTextArea.setEditable(false);
+		//consoleTextArea.setEditable(false);
 		consoleTextArea.setLineWrap(true);
+		consoleTextArea.setEditable(false);
 		consoleTextArea.setBackground(SystemColor.control);
 		consoleTextArea.setForeground(Color.BLACK);
 		consoleTextArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		consoleScrollPane = new JScrollPane(consoleTextArea);
 		consoleScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		consoleScrollPane.setBounds(50, 100, 1250, 400);
@@ -332,8 +346,10 @@ public class MilleniumView implements ActionListener{
 		
 		//Other initializations
 		printStream = new PrintStream(new CustomOutputStream(consoleTextArea));
+
 		System.setOut(printStream);
 		System.setErr(printStream);
+
 		
 	}
 	
@@ -394,7 +410,12 @@ public class MilleniumView implements ActionListener{
 		((DefaultTableModel) model).addRow(new Object[] {errorType, errorLine, errorMsg});
 		highlightError(Integer.parseInt(errorLine.split(":")[0]));
 	}
-
+	
+	public void addSemanticErrorMessages(String errorType, String errorLine, String errorMsg){
+		((DefaultTableModel) model).addRow(new Object[] {errorType, errorLine, errorMsg});
+		highlightError(Integer.parseInt(errorLine));
+	}
+	
 	private CompletionProvider createCompletionProvider() {
 		DefaultCompletionProvider provider = new DefaultCompletionProvider();
 		
@@ -406,6 +427,11 @@ public class MilleniumView implements ActionListener{
 		provider.addCompletion(new BasicCompletion(provider, "lutang"));
 		
 		return provider;
+	}
+	
+	public String openScanDialog(){
+		return JOptionPane.showInputDialog("Please enter: ");
+		
 	}
 	
 }
